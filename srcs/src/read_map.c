@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:37:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 16:35:51 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:25:11 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	store_map(t_core *c)
 	free(c->line);
 	while ((c->line = get_next_line(c->map->fd)) != NULL)
 	{
+		if (c->line[0] == '\n')
+			error_map(c);
 		check_tab(c);
 		c->map->map = realloc_map(c->map->map, sizeof(char *) * (i + 2));
 		c->map->map[i] = ft_strdup(c->line);

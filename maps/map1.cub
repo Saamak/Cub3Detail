@@ -1,14 +1,18 @@
 
-C 100,255,12
+C 255,255,255
 F 100,45,120
 
-NO maps/path_to_the_north_texture
-SO maps/path_to_the_south_texture
-WE maps/path_to_the_west_texture
-EA maps/path_to_the_east_texture
+NO maps/path_to_the_north_texture.png
+SO maps/path_to_the_south_texture.png
+WE maps/path_to_the_west_texture.png
+EA maps/path_to_the_east_texture.png
 
 
 11111111111111111
-10000000000000111
-10000000000E00011
+11111111111000111
+11111111111111111
+11111111111111111            11111
+10000000000E00011            10001
+11111111111111111            11111
+E
 11111111111111111

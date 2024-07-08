@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:21:56 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/07 15:02:39 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:57:45 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	file_exists(char *filename, t_core *c)
 	int	fd;
 
 	fd = open(filename, O_RDONLY);
+	printf("filename : %s\n", filename);
 	if (fd == -1)
 	{
 		printf(B_R"   |Error : File %s does not exist"

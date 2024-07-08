@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 16:32:34 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:59:13 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	bit_shift_rgb(int r, int g, int b, t_core *c);
 void	color_process(char *line, t_core *c);
 void	check_color(t_core *c, char *line, char what);
 void	read_map(t_core *c);
+int	extension(char *str, char *ext);
 
 //Init
 t_core	*init_core(t_core *core);

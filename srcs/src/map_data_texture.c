@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:27:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 16:25:00 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:02:25 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ void	put_path_extend(t_core *c, int what, char *line)
 	if (what == 3)
 	{
 		c->texture->we = ft_strdup_end(line);
-		if (!file_exists(c->texture->we, c))
-			error_open_file(c);
-		else
-			c->map->WE = 1;
+		file_exists(c->texture->we, c);
+		if(extension(c->texture->we, ".png"))
+			error_extension(c);
+		c->map->WE = 1;
 	}
 	if (what == 4)
 	{
 		c->texture->ea = ft_strdup_end(line);
-		if (!file_exists(c->texture->ea, c))
-			error_open_file(c);
-		else
-			c->map->EA = 1;
+		file_exists(c->texture->ea, c);
+		if(extension(c->texture->we, ".png"))
+			error_extension(c);
+		c->map->EA = 1;
 	}
 }
 
@@ -38,12 +38,16 @@ void	put_path(t_core *c, int what, char *line)
 	{
 		c->texture->no = ft_strdup_end(line);
 		file_exists(c->texture->no, c);
+		if(extension(c->texture->no, ".png"))
+			error_extension(c);
 		c->map->NO = 1;
 	}
 	if (what == 2)
 	{
 		c->texture->so = ft_strdup_end(line);
 		file_exists(c->texture->so, c);
+		if(extension(c->texture->so, ".png"))
+			error_extension(c);
 		c->map->SO = 1;
 	}
 	if (what == 3 || what == 4)

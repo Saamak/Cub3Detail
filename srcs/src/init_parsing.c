@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:09:19 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 16:27:59 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:57:58 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_core	*init_texture(t_core *c)
 	c->map->r = 0;
 	c->map->g = 0;
 	c->map->b = 0;
+	c->map->fd = 0;
 	return (c);
 }
 
@@ -53,7 +54,6 @@ t_core	*init_core(t_core *c)
 	c->win = 0;
 	c->map->map = NULL;
 	c->map->map_path = NULL;
-	c->map->fd = 0;
 	c->map->player_here = 0;
 	c->texture = malloc(sizeof(t_texture));
 	c->line = NULL;
