@@ -13,6 +13,6 @@ int	main (int argc, char **argv)
 	read_hub(c);
 	print_texture(c);
 	printf(BOLD END_LINE RESET);
-	// go_render(c);
+	go_render(c);
 	return (0);
 }
