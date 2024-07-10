@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 17:59:13 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:46:53 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,25 @@
 # define ERROR_PLAYER "\n   |Error : No player found \u274c \n"
 // MATH
 # define PI "3,14159265"
+# define FOV 60
+# define TILE 15
+# define SCREEN_HEIGHT 720
+# define SCREEN_LENGHT 1280
 
 // STRUCTURES
+
+typedef struct s_rotation
+{
+	double	angle_c;
+	double	angle_l;
+	double	angle_r;
+	int	p_x;
+	int	p_y;
+	int	pix_x;
+	int	pix_y;
+	float	fov_rd;
+}t_rotation;
+
 typedef struct s_map
 {
 	int		fd;
@@ -145,6 +162,6 @@ void	error_player(t_core *c);
 void	go_render(t_core *c);
 
 //matrice_rotation
-void	start_rotation(t_core *c);
+t_rotation  *start_rotation(t_core *c);
 
 #endif

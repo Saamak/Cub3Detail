@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 17:44:47 by kprigent          #+#    #+#              #
-#    Updated: 2024/07/08 16:14:06 by ppitzini         ###   ########.fr        #
+#    Updated: 2024/07/10 19:04:53 by pirulenc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 $(NAME): $(OBJTS)
 	@${MAKE} -j -C ./libft -s
 	@${MAKE} -j -C ./MacroLibX -s
-	cc -o $(NAME) $(OBJTS) ./libft/libft.a ./MacroLibX/libmlx.so -lSDL2
+	cc -o $(NAME) $(OBJTS) ./libft/libft.a ./MacroLibX/libmlx.so -lSDL2 -lm
 
 RM	= rm -f
 
