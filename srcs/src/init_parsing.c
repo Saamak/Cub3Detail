@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:09:19 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 17:57:58 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:21:20 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_core	*init_texture(t_core *c)
 	c->map->g = 0;
 	c->map->b = 0;
 	c->map->fd = 0;
+	c->map->len_prev_line = 0;
+	c->map->len_this_line = 0;
 	return (c);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/10 19:46:53 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:24:08 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_map
 	int		r;
 	int		g;
 	int		b;
+	int		len_prev_line;
+	int		len_this_line;
 }				t_map;
 
 typedef struct s_texture
@@ -140,6 +142,7 @@ int		ct_line (char *s);
 void	count_map_height(t_core *c);
 void	verify_last_line(t_core *c);
 void	count_map_lenght(t_core *c);
+int		str_len_modif(char *s);
 
 //free
 void	free_map(t_map *map);

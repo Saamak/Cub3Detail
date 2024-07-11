@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:37:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 18:25:11 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:32:20 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,33 @@ void	check_tab(t_core *c)
 	}
 }
 
+char	*strdup_and_pad(char *src, int len)
+{
+	int		src_len;
+	char	*dst;
+	int		i;
+
+	src_len = ft_strlen(src);
+	if (src_len > len)
+		len = src_len;
+	dst = malloc(len + 1);
+	if (!dst)
+		return (NULL);
+	i = 0;
+	while (i < src_len)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	while (i < len)
+	{
+		dst[i] = ' ';
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
 void	store_map(t_core *c)
 {
 	int	i;
@@ -95,8 +122,9 @@ void	store_map(t_core *c)
 		if (c->line[0] == '\n')
 			error_map(c);
 		check_tab(c);
+		c->map->len_prev_line = str_len_modif(c->map->map[i - 1]);
 		c->map->map = realloc_map(c->map->map, sizeof(char *) * (i + 2));
-		c->map->map[i] = ft_strdup(c->line);
+		c->map->map[i] = strdup_and_pad(c->line, c->map->len_prev_line);
 		c->map->map[i + 1] = NULL;
 		i++;
 		free(c->line);
