@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/24 05:59:29 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/24 06:32:46 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,21 @@
 # define END_LINE "\n\n -----------------------------------------------\n"
 # define ERROR_PLAYER "\n   |Error : No player found \u274c \n"
 // MATH
-# define PI "3,14159265"
 # define FOV 60
 # define TILE 15
-# define SCREEN_HEIGHT 720
-# define SCREEN_LENGHT 1280
+# define SCREEN_HEIGHT 480
+# define SCREEN_LENGHT 720
+# define RAYS 720
 
 // STRUCTURES
 
 typedef struct s_rotation
 {
-	double	angle_c;
-	double	angle_l;
-	double	angle_r;
+	double	p_angle;
 	int	p_x;
 	int	p_y;
-	int	pix_x;
-	int	pix_y;
 	float	fov_rd;
+	double	ray_step;
 }t_rotation;
 
 typedef struct s_map
