@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/11 15:24:08 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/24 05:59:29 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,8 +163,5 @@ void	error_player(t_core *c);
 
 //go_render
 void	go_render(t_core *c);
-
-//matrice_rotation
-t_rotation  *start_rotation(t_core *c);
 
 #endif
