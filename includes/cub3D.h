@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/24 06:32:46 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:09:15 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,11 @@
 // MATH
 # define FOV 60
 # define TILE 15
-# define SCREEN_HEIGHT 480
-# define SCREEN_LENGHT 720
+# define SCREEN_HEIGHT 720
+# define SCREEN_LENGHT 1280
 # define RAYS 720
 
 // STRUCTURES
-
 typedef struct s_rotation
 {
 	double	p_angle;
@@ -58,6 +57,11 @@ typedef struct s_rotation
 	int	p_y;
 	float	fov_rd;
 	double	ray_step;
+	int		hor_or_ver;
+	float	hor_pos_wall_x;
+	float	hor_pos_wall_y;
+	float	ver_pos_wall_x;
+	float	ver_pos_wall_y;
 }t_rotation;
 
 typedef struct s_map
@@ -103,6 +107,7 @@ typedef struct map_core
 	char		*line;
 	t_map		*map;
 	t_texture	*texture;
+	t_rotation	*rota;
 }			t_core;
 
 //Input_verifs
@@ -160,5 +165,6 @@ void	error_player(t_core *c);
 
 //go_render
 void	go_render(t_core *c);
+void    render_ray(t_core *c, t_rotation *rota, double current_ray);
 
 #endif

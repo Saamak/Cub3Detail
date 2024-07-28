@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/24 09:47:31 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:11:48 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ double  get_angle_player(t_core *c)
         while (c->map->map[x][y])
         {
             if (c->map->map[x][y] == 'N')
-                return (3 * M_PI / 2);
+                return ((3 * M_PI) / 2);
             if (c->map->map[x][y] == 'S')
                 return (M_PI / 2);
             if (c->map->map[x][y] == 'E')
@@ -96,6 +96,11 @@ void    init_rota(t_rotation *rota, t_core *c)
     rota->p_y = get_pos_player_y(c);
     rota->fov_rd = FOV * M_PI / 180;
     rota->ray_step = FOV / SCREEN_LENGHT;
+    rota->ver_pos_wall_x = 0;
+    rota->ver_pos_wall_y = 0;
+    rota->hor_pos_wall_x = 0;
+    rota->hor_pos_wall_y = 0;
+    rota->hor_or_ver = 0;
 }
 
 void    init_mlx(t_core *c)
@@ -103,48 +108,123 @@ void    init_mlx(t_core *c)
     c->mlx = mlx_init();
     c->win = mlx_new_window(c->mlx, SCREEN_LENGHT, SCREEN_HEIGHT, "Cub3D");
 }
+int hit_wall(double x, double y, double ray, t_core *c)
+{
+    int x_map;
+    int y_map;
+    (void)ray;
+
+    if (x < 0 || y < 0)
+        return (1);
+    x_map = floor(x / 64);  
+    y_map = floor(y / 64);
+    if (x_map >= c->map->height_line || y_map >= c->map->lenght_line)
+        return (1);
+    if (c->map->map[x_map][y_map] == '1')
+        return (1);
+    return (0);
+}
+
+double  normalize_angle(double ray)
+{
+    if (ray < 0)
+        ray = ray + (2 * M_PI);
+    if (ray > (2 * M_PI))
+        ray = ray - (2 * M_PI);
+    return (ray);
+}
+
+double  check_horizontal(t_core *c, t_rotation *rota, double ray)
+{
+    double  x_inter;
+    double  y_inter;
+    double  x_step;
+    double  y_step;
+
+    (void)rota;
+    (void)c;
+    if (ray > M_PI && ray < 2 * M_PI)
+    {
+        x_step = -64;
+        x_inter = (rota->p_x / 64) * 64 - 1;
+        y_inter = rota->p_y + (x_inter - rota->p_x) / tan(ray);
+    }
+    else
+    {
+        x_step = 64;
+        x_inter = (rota->p_x / 64) * 64 + 64;
+        y_inter = rota->p_y + (x_inter - rota->p_x) / tan(ray);
+    }
+    y_step = 64 / tan(ray);
+    //if (ray > M_PI && ray < 2 * M_PI)
+    //    y_step = 64 * tan(ray) - 64 / tan(ray);
+    //else
+    //    y_step = 64 / tan(ray) - 64 * tan(ray);
+    //while (x_inter > 0 && x_inter < c->map->height_line * 64  && y_inter > 0 && y_inter < c->map->lenght_line * 64 && c->map->map[(int)(x_inter / 64)][(int)(y_inter / 64)] != '1')
+    //{
+    //    x_inter = x_inter + x_step;
+    //    y_inter = y_inter + y_step;
+    //}
+    rota->hor_pos_wall_x = x_inter; 
+    rota->hor_pos_wall_y = y_inter;
+    return (sqrt(pow(y_inter - rota->p_y, 2) + pow(x_inter - rota->p_x, 2)));
+}
+
+double  check_vertical(t_core *c, t_rotation *rota, double ray)
+{
+    double  x_inter;
+    double  y_inter;
+    double  x_step;
+    double  y_step;
+
+    (void)rota;
+    (void)c;
+    if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
+    {
+        y_step = 64;
+        y_inter = (rota->p_y / 64) * 64 - 1;
+        x_inter = rota->p_x + (y_inter - rota->p_y) * tan(ray);
+    }
+    else
+    {
+        x_step = -64;
+        y_inter = (rota->p_y / 64) * 64 + 64;
+        x_inter = rota->p_x + (y_inter - rota->p_y) * tan(ray);
+    }
+    x_step = 64 * tan(ray);
+    //if (ray < M_PI / 2 && ray > 3 * M_PI / 2)
+    //    x_step = 64 / tan(ray) - 64 * tan(ray);
+    //else
+    //    x_step = 64 * tan(ray) - 64 / tan(ray);
+    //while (x_inter > 0 && x_inter < c->map->height_line * 64 && y_inter > 0 && y_inter < c->map->lenght_line * 64 && c->map->map[(int)(x_inter / 64)][(int)(y_inter / 64)] != '1')
+    //{
+    //    x_inter = x_inter + x_step;
+    //    y_inter = y_inter + y_step;
+    //}
+    rota->ver_pos_wall_x = x_inter;
+    rota->ver_pos_wall_y = y_inter;
+    return (sqrt(pow(y_inter - rota->p_y, 2) + pow(x_inter - rota->p_x, 2)));
+}
 
 void    send_ray(t_core *c, t_rotation *rota, float current_ray)
 {
-    float   f_x;
-    float   f_y;
-    float   x_step;
-    float   y_step;
-    int     hit;
-    float   current_pos_x;
-    int     int_current_pos_x;
-    float   current_pos_y;
-    int     int_current_pos_y;
+    double  vertical_inter;
+    double  horizontal_inter;
+    double  distance;
 
-    (void)c;
-    hit = 0;
-    f_y = (rota->p_y / 64) * 64;
-    f_x = rota->p_x + (f_y - rota->p_y) / tan(current_ray);
-    y_step = 64;
-    x_step = 64 / tan(current_ray);
-    current_pos_x = f_x;
-    int_current_pos_x = (int)current_pos_x;
-    current_pos_y = f_y;
-    printf("test p_y = %f\n", f_x);
-    int_current_pos_y = (int)current_pos_y;
-    printf("case player x = %d|| case player y = %d |||| check case x = %d || check case y = %d\n", (int)rota->p_x / 64, (int)rota->p_y / 64, int_current_pos_x / 64, int_current_pos_y / 64);
-    if (int_current_pos_x / 64 < c->map->height_line && int_current_pos_y / 64 < c->map->lenght_line && c->map->map[int_current_pos_x / 64][int_current_pos_y / 64] == '1')
+    horizontal_inter = check_horizontal(c, rota, normalize_angle(current_ray));
+    vertical_inter = check_vertical(c, rota, normalize_angle(current_ray));
+    if (vertical_inter <= horizontal_inter)
     {
-        hit = 1;
-        //printf("wall hit position x = %d || y = %d\n", int_current_pos_x / 64, int_current_pos_y / 64);
-        return ;
+        distance = vertical_inter;
+        printf("vertical is taken\n");
+        rota->hor_or_ver = 0;
     }
-    while (!hit)
+    else
     {
-        current_pos_x = current_pos_x + x_step;
-        int_current_pos_x = (int)current_pos_x;
-        current_pos_y = current_pos_y + y_step;
-        int_current_pos_y = (int)current_pos_y;
-        if (int_current_pos_x / 64 < c->map->height_line && int_current_pos_y / 64 < c->map->lenght_line && c->map->map[int_current_pos_x / 64][int_current_pos_y / 64] == '1')
-        {
-            hit = 1;
-            //printf("wall hit position x = %d || y = %d\n", int_current_pos_x / 64, int_current_pos_y / 64);
-        }
+        distance = horizontal_inter;
+        printf("horizontal is taken\n");
+        rota->hor_or_ver = 1;
     }
 }
 
@@ -152,24 +232,22 @@ void    pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color)
 {
     int j;
     int k;
-    int pos_player_x;
-    int pos_player_y;
-
     (void)rota;
+    
     k = 0;
     j = 0;
-    pos_player_x = ((rota->p_x - 32) / 64) * 15 + 7;
-    pos_player_y = ((rota->p_y - 32) / 64) * 15 + 7;
-    while (k <= 15)
+    while (k <= 64)
     {
-        while (j <= 15)
+        while (j <= 64)
         {
-            if ((x * 15) + j == pos_player_x && (y * 15) + k == pos_player_y)
-                mlx_pixel_put(c->mlx, c->win, (y * 15) + k, (x * 15) + j , 0xFF03eb00);
+            if (j == 0 || k == 0 || j == 64  || k == 64)
+                mlx_pixel_put(c->mlx, c->win, (y * 64) + j, (x * 64) + k , 0xFF00c401);
+            else if ((y * 64) + j == rota->p_y && (x * 64) + k == rota->p_x)
+                mlx_pixel_put(c->mlx, c->win, (y * 64) + j, (x * 64) + k , 0xFF03eb00);
             else
-                mlx_pixel_put(c->mlx, c->win, (y * 15) + k, (x * 15) + j , color);
+                mlx_pixel_put(c->mlx, c->win, (y * 64) + j, (x * 64) + k , color);
             j++;
-        }
+        }   
         j = 0;
         k++;
     }
@@ -184,7 +262,7 @@ void    draw_minimap(t_rotation *rota, t_core *c)
     y = 0;
     while (c->map->map[x])
     {
-        while (c->map->map[x][y])
+        while (c->map->map[x][y] && c->map->map[x][y] != '\n')
         {
             if (c->map->map[x][y] != '1')
                 pixel_draw(x, y, rota, c, 0xFFffffff);
@@ -196,27 +274,99 @@ void    draw_minimap(t_rotation *rota, t_core *c)
         x++;
     }
 }
+void    render_ray(t_core *c, t_rotation *rota, double current_ray)
+{
+    double  dx;
+    double  dy;
+    double  steps;
+    double  x_inc;
+    double  y_inc;
+    double  x;
+    double  y;
+    int     i;
+
+    (void)current_ray;
+    i = 0;
+    if (rota->hor_or_ver == 0)
+    {
+        dx = rota->ver_pos_wall_x - rota->p_x;
+        dy = rota->ver_pos_wall_y - rota->p_y;
+    }
+    if (rota->hor_or_ver == 1)
+    {
+        dx = rota->hor_pos_wall_x - rota->p_x;
+        dy = rota->hor_pos_wall_y - rota->p_y;
+    }
+    if (fabs(dx) > fabs(dy))
+        steps = fabs(dx);
+    else
+        steps = fabs(dy);
+    x_inc = dx / steps;
+    y_inc = dy / steps;
+    x = rota->p_x;
+    y = rota->p_y;
+    while (i < steps)
+    {   
+        mlx_pixel_put(c->mlx, c->win, round(y), round(x), 0xffff0000);
+        x = x + x_inc;
+        y = y + y_inc;
+        i++;
+    }
+}
+void    cast_ray(t_core *c)
+{
+    float   current_ray;
+    float   angle_increment;
+    int     nbr_ray;
+    
+    nbr_ray = 1;
+    current_ray = normalize_angle(c->rota->p_angle + (c->rota->fov_rd / 2));
+    angle_increment = c->rota->fov_rd / SCREEN_LENGHT;
+    while (nbr_ray <= SCREEN_LENGHT)//current_ray >= normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2)))
+    {
+        if (nbr_ray == 1)// || nbr_ray == SCREEN_LENGHT)
+        {
+            printf("\n\n===>> angle = %f <<===\n\n", c->rota->p_angle);
+            c->rota->p_angle = normalize_angle(c->rota->p_angle);
+            send_ray(c, c->rota, c->rota->p_angle);
+            render_ray(c, c->rota, c->rota->p_angle);
+        }
+        nbr_ray++;
+        current_ray = normalize_angle(current_ray - angle_increment);
+    }
+}
+
+int key_hook(int key, void *tempo)
+{
+    t_core *c;
+
+    c = (t_core *)tempo;
+    if (key == 4)//"A"
+    {
+        c->rota->p_angle = normalize_angle(c->rota->p_angle + 0.01);
+        draw_minimap(c->rota, c);
+        cast_ray(c);
+    }
+    if (key == 7)//"D"
+    {
+        c->rota->p_angle = normalize_angle(c->rota->p_angle - 0.01);
+        draw_minimap(c->rota, c);
+        cast_ray(c);
+    }
+    return (0);
+}
 
 void    go_render(t_core *c)
 {
-    t_rotation *rota;
-    float   current_ray;
-    float   angle_increment;
+    t_rotation  *rota;
 
     rota = malloc(sizeof(t_rotation));
     init_rota(rota, c);
     init_mlx(c);
-    printf("%f\n", M_PI);
-    printf("ROTA == p_x = %d || p_y = %d || p_angle = %f || ray_step = %f\n", rota->p_x, rota->p_y, rota->p_angle, rota->ray_step);
-    current_ray = rota->p_angle - rota->fov_rd / 2;
-    angle_increment = (current_ray + rota->fov_rd) / SCREEN_LENGHT;
-    printf("first ray = %f\n", current_ray);
-    while (current_ray < rota->p_angle + rota->fov_rd / 2)
-    {
-        send_ray(c, rota, current_ray);
-        current_ray = current_ray + angle_increment;
-    }
+    c->rota = rota;
     draw_minimap(rota, c);
+    cast_ray(c);
+    mlx_on_event(c->mlx, c->win, MLX_KEYDOWN, key_hook, c);
     mlx_loop(c->mlx);
     mlx_destroy_window(c->mlx, c->win);
     mlx_destroy_display(c->mlx);

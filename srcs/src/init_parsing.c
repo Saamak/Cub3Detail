@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:09:19 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/11 15:21:20 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/28 04:15:14 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_core	*init_core(t_core *c)
 	c->line = NULL;
 	c->what = 0;
 	c->data_ok = 0;
+	c->rota = NULL;
 	if (!c->texture)
 		textures_error_alloc(c);
 	return (init_texture(c));
