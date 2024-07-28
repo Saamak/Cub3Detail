@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/28 08:11:48 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/28 10:16:47 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,17 +156,18 @@ double  check_horizontal(t_core *c, t_rotation *rota, double ray)
         y_inter = rota->p_y + (x_inter - rota->p_x) / tan(ray);
     }
     y_step = 64 / tan(ray);
-    //if (ray > M_PI && ray < 2 * M_PI)
-    //    y_step = 64 * tan(ray) - 64 / tan(ray);
-    //else
-    //    y_step = 64 / tan(ray) - 64 * tan(ray);
-    //while (x_inter > 0 && x_inter < c->map->height_line * 64  && y_inter > 0 && y_inter < c->map->lenght_line * 64 && c->map->map[(int)(x_inter / 64)][(int)(y_inter / 64)] != '1')
-    //{
-    //    x_inter = x_inter + x_step;
-    //    y_inter = y_inter + y_step;
-    //}
+    while (x_inter > 0 && x_inter < c->map->height_line * 64  && y_inter > 0 && y_inter < c->map->lenght_line * 64 && c->map->map[(int)(x_inter / 64)][(int)(y_inter / 64)] != '1')
+    {
+        if (ray > M_PI && ray < 2 * M_PI)
+            y_inter = y_inter - y_step;
+        else
+            y_inter = y_inter + y_step;
+        x_inter = x_inter + x_step;
+    }
+    //printf("HORIZONTAL ==> x_inter = %f || y_inter = %f\n\n", x_inter, y_inter);
     rota->hor_pos_wall_x = x_inter; 
     rota->hor_pos_wall_y = y_inter;
+    //printf("HORIZONTAL ==> x_inter = %f || y_inter = %f\n\n", x_inter, y_inter);
     return (sqrt(pow(y_inter - rota->p_y, 2) + pow(x_inter - rota->p_x, 2)));
 }
 
@@ -181,26 +182,27 @@ double  check_vertical(t_core *c, t_rotation *rota, double ray)
     (void)c;
     if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
     {
-        y_step = 64;
+        y_step = -64;
         y_inter = (rota->p_y / 64) * 64 - 1;
         x_inter = rota->p_x + (y_inter - rota->p_y) * tan(ray);
     }
     else
     {
-        x_step = -64;
+        y_step = 64;
         y_inter = (rota->p_y / 64) * 64 + 64;
         x_inter = rota->p_x + (y_inter - rota->p_y) * tan(ray);
     }
     x_step = 64 * tan(ray);
-    //if (ray < M_PI / 2 && ray > 3 * M_PI / 2)
-    //    x_step = 64 / tan(ray) - 64 * tan(ray);
-    //else
-    //    x_step = 64 * tan(ray) - 64 / tan(ray);
-    //while (x_inter > 0 && x_inter < c->map->height_line * 64 && y_inter > 0 && y_inter < c->map->lenght_line * 64 && c->map->map[(int)(x_inter / 64)][(int)(y_inter / 64)] != '1')
-    //{
-    //    x_inter = x_inter + x_step;
-    //    y_inter = y_inter + y_step;
-    //}
+    while (x_inter > 0 && x_inter < c->map->height_line * 64  && y_inter > 0 && y_inter < c->map->lenght_line * 64 && c->map->map[(int)(x_inter / 64)][(int)(y_inter / 64)] != '1')
+    {
+        if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
+        {
+            x_inter = x_inter - x_step;
+        }
+        else
+            x_inter = x_inter + x_step;
+        y_inter = y_inter + y_step;
+    }
     rota->ver_pos_wall_x = x_inter;
     rota->ver_pos_wall_y = y_inter;
     return (sqrt(pow(y_inter - rota->p_y, 2) + pow(x_inter - rota->p_x, 2)));
@@ -212,20 +214,24 @@ void    send_ray(t_core *c, t_rotation *rota, float current_ray)
     double  horizontal_inter;
     double  distance;
 
-    horizontal_inter = check_horizontal(c, rota, normalize_angle(current_ray));
-    vertical_inter = check_vertical(c, rota, normalize_angle(current_ray));
-    if (vertical_inter <= horizontal_inter)
+    (void)horizontal_inter;
+    (void)distance;
+    horizontal_inter = check_horizontal(c, rota, current_ray);
+    vertical_inter = check_vertical(c, rota, current_ray);
+    if (vertical_inter < horizontal_inter)
     {
         distance = vertical_inter;
-        printf("vertical is taken\n");
+        //printf("vertical is taken\n");
         rota->hor_or_ver = 0;
     }
     else
     {
         distance = horizontal_inter;
-        printf("horizontal is taken\n");
+        //printf("horizontal is taken\n");
         rota->hor_or_ver = 1;
     }
+    //distance = vertical_inter;
+    //rota->hor_or_ver = 0;
 }
 
 void    pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color)
@@ -324,13 +330,13 @@ void    cast_ray(t_core *c)
     angle_increment = c->rota->fov_rd / SCREEN_LENGHT;
     while (nbr_ray <= SCREEN_LENGHT)//current_ray >= normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2)))
     {
-        if (nbr_ray == 1)// || nbr_ray == SCREEN_LENGHT)
-        {
-            printf("\n\n===>> angle = %f <<===\n\n", c->rota->p_angle);
-            c->rota->p_angle = normalize_angle(c->rota->p_angle);
-            send_ray(c, c->rota, c->rota->p_angle);
-            render_ray(c, c->rota, c->rota->p_angle);
-        }
+        //if (nbr_ray == 1)// || nbr_ray == SCREEN_LENGHT)
+        //{
+            //printf("\n\n===>> angle = %f <<===\n\n", current_ray);
+            //c->rota->p_angle = normalize_angle(c->rota->p_angle);
+            send_ray(c, c->rota, current_ray);
+            render_ray(c, c->rota, current_ray);
+        //}
         nbr_ray++;
         current_ray = normalize_angle(current_ray - angle_increment);
     }
