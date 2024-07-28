@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/28 08:09:15 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/28 10:48:21 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define SCREEN_HEIGHT 720
 # define SCREEN_LENGHT 1280
 # define RAYS 720
+# define SPEED 4
 
 // STRUCTURES
 typedef struct s_rotation

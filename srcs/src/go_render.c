@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/28 10:16:47 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/28 10:48:20 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,15 +347,44 @@ int key_hook(int key, void *tempo)
     t_core *c;
 
     c = (t_core *)tempo;
-    if (key == 4)//"A"
+    printf("key = %d\n", key);
+    if (key == 79)// fleche droite
     {
         c->rota->p_angle = normalize_angle(c->rota->p_angle + 0.01);
         draw_minimap(c->rota, c);
         cast_ray(c);
     }
-    if (key == 7)//"D"
+    else if (key == 80)// fleche gauche
     {
         c->rota->p_angle = normalize_angle(c->rota->p_angle - 0.01);
+        draw_minimap(c->rota, c);
+        cast_ray(c);
+    }
+    else if (key == 26)// W
+    {
+        c->rota->p_x = c->rota->p_x + (sin(c->rota->p_angle) * SPEED);
+        c->rota->p_y = c->rota->p_y + (cos(c->rota->p_angle) * SPEED);
+        draw_minimap(c->rota, c);
+        cast_ray(c);
+    }
+    else if (key == 22)// S
+    {
+        if (c->rota->p_x < 64 * c->map->height_line)
+            c->rota->p_x = c->rota->p_x + 1;
+        draw_minimap(c->rota, c);
+        cast_ray(c);
+    }
+    else if (key == 7)// D
+    {
+        if (c->rota->p_y < 64 * c->map->lenght_line)
+            c->rota->p_y = c->rota->p_y + 1;
+        draw_minimap(c->rota, c);
+        cast_ray(c);
+    }
+    else if (key == 4)// A
+    {
+        if (c->rota->p_y > 0)
+            c->rota->p_y = c->rota->p_y - 1;
         draw_minimap(c->rota, c);
         cast_ray(c);
     }
