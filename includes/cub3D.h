@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/28 10:48:21 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/29 05:11:01 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_rotation
 	float	hor_pos_wall_y;
 	float	ver_pos_wall_x;
 	float	ver_pos_wall_y;
+	float	distance;
 }t_rotation;
 
 typedef struct s_map
@@ -166,6 +167,6 @@ void	error_player(t_core *c);
 
 //go_render
 void	go_render(t_core *c);
-void    render_ray(t_core *c, t_rotation *rota, double current_ray);
+void    render_ray_2d(t_core *c, t_rotation *rota, double current_ray);
 
 #endif

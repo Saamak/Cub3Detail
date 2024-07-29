@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/28 10:48:20 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/29 05:33:21 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void    init_rota(t_rotation *rota, t_core *c)
     rota->hor_pos_wall_x = 0;
     rota->hor_pos_wall_y = 0;
     rota->hor_or_ver = 0;
+    rota->distance = 0;
 }
 
 void    init_mlx(t_core *c)
@@ -212,26 +213,19 @@ void    send_ray(t_core *c, t_rotation *rota, float current_ray)
 {
     double  vertical_inter;
     double  horizontal_inter;
-    double  distance;
 
-    (void)horizontal_inter;
-    (void)distance;
     horizontal_inter = check_horizontal(c, rota, current_ray);
     vertical_inter = check_vertical(c, rota, current_ray);
     if (vertical_inter < horizontal_inter)
     {
-        distance = vertical_inter;
-        //printf("vertical is taken\n");
+        rota->distance = vertical_inter;
         rota->hor_or_ver = 0;
     }
     else
     {
-        distance = horizontal_inter;
-        //printf("horizontal is taken\n");
+        rota->distance = horizontal_inter;
         rota->hor_or_ver = 1;
     }
-    //distance = vertical_inter;
-    //rota->hor_or_ver = 0;
 }
 
 void    pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color)
@@ -280,7 +274,7 @@ void    draw_minimap(t_rotation *rota, t_core *c)
         x++;
     }
 }
-void    render_ray(t_core *c, t_rotation *rota, double current_ray)
+void    render_ray_2d(t_core *c, t_rotation *rota, double current_ray)
 {
     double  dx;
     double  dy;
@@ -319,23 +313,60 @@ void    render_ray(t_core *c, t_rotation *rota, double current_ray)
         i++;
     }
 }
+void    render_wall(t_core *c, int colone, double start_pixel, double end_pixel)
+{
+    while (start_pixel > end_pixel)
+        mlx_pixel_put(c->mlx, c->win, colone, start_pixel--, 0xff9535ff);
+}
+
+void    render_floor_sky(t_core *c, int colone, double start_pixel, double end_pixel)
+{
+    int x;
+
+    x = start_pixel;
+    while (x < SCREEN_HEIGHT)
+        mlx_pixel_put(c->mlx, c->win, colone, x++, 0xff01ba05);
+    x = 0;
+    while (x < end_pixel)
+        mlx_pixel_put(c->mlx, c->win, colone, x++, 0xff01bab9);
+}
+
+void    render_ray_3d(t_core *c, t_rotation *rota, double current_ray, int colone)
+{
+    double  wall;
+    double  start_pixel;
+    double  end_pixel;
+
+    rota->distance = rota->distance * cos(current_ray - rota->p_angle);
+    wall = (64 / rota->distance) * ((SCREEN_LENGHT / 2) / tan(rota->fov_rd / 2));
+    start_pixel = (SCREEN_HEIGHT / 2) + (wall / 2);
+    end_pixel = (SCREEN_HEIGHT / 2) - (wall / 2);
+    if (start_pixel > SCREEN_HEIGHT)
+        start_pixel = SCREEN_HEIGHT;
+    if (end_pixel < 0)
+        end_pixel = 0;
+    render_wall(c, colone, start_pixel, end_pixel);
+    render_floor_sky(c, colone, start_pixel, end_pixel);
+}
+
 void    cast_ray(t_core *c)
 {
     float   current_ray;
     float   angle_increment;
     int     nbr_ray;
     
-    nbr_ray = 1;
+    nbr_ray = 0;
     current_ray = normalize_angle(c->rota->p_angle + (c->rota->fov_rd / 2));
     angle_increment = c->rota->fov_rd / SCREEN_LENGHT;
-    while (nbr_ray <= SCREEN_LENGHT)//current_ray >= normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2)))
+    while (nbr_ray < SCREEN_LENGHT)//current_ray >= normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2)))
     {
         //if (nbr_ray == 1)// || nbr_ray == SCREEN_LENGHT)
         //{
             //printf("\n\n===>> angle = %f <<===\n\n", current_ray);
             //c->rota->p_angle = normalize_angle(c->rota->p_angle);
             send_ray(c, c->rota, current_ray);
-            render_ray(c, c->rota, current_ray);
+            //render_ray_2d(c, c->rota, current_ray);
+            render_ray_3d(c, c->rota, current_ray, nbr_ray);
         //}
         nbr_ray++;
         current_ray = normalize_angle(current_ray - angle_increment);
@@ -347,45 +378,44 @@ int key_hook(int key, void *tempo)
     t_core *c;
 
     c = (t_core *)tempo;
-    printf("key = %d\n", key);
     if (key == 79)// fleche droite
     {
-        c->rota->p_angle = normalize_angle(c->rota->p_angle + 0.01);
-        draw_minimap(c->rota, c);
+        c->rota->p_angle = normalize_angle(c->rota->p_angle + (0.01 * SPEED));
+        //draw_minimap(c->rota, c);
         cast_ray(c);
     }
     else if (key == 80)// fleche gauche
     {
-        c->rota->p_angle = normalize_angle(c->rota->p_angle - 0.01);
-        draw_minimap(c->rota, c);
+        c->rota->p_angle = normalize_angle(c->rota->p_angle - (0.01 * SPEED));
+        //draw_minimap(c->rota, c);
         cast_ray(c);
     }
-    else if (key == 26)// W
+    else if (key == 26)// W move up
     {
         c->rota->p_x = c->rota->p_x + (sin(c->rota->p_angle) * SPEED);
         c->rota->p_y = c->rota->p_y + (cos(c->rota->p_angle) * SPEED);
-        draw_minimap(c->rota, c);
+        //draw_minimap(c->rota, c);
         cast_ray(c);
     }
-    else if (key == 22)// S
+    else if (key == 22)// S move down
     {
-        if (c->rota->p_x < 64 * c->map->height_line)
-            c->rota->p_x = c->rota->p_x + 1;
-        draw_minimap(c->rota, c);
+        c->rota->p_x = c->rota->p_x + (-sin(c->rota->p_angle) * SPEED);
+        c->rota->p_y = c->rota->p_y + (-cos(c->rota->p_angle) * SPEED);
+        //draw_minimap(c->rota, c);
         cast_ray(c);
     }
-    else if (key == 7)// D
+    else if (key == 7)// D move right
     {
-        if (c->rota->p_y < 64 * c->map->lenght_line)
-            c->rota->p_y = c->rota->p_y + 1;
-        draw_minimap(c->rota, c);
+        c->rota->p_x = c->rota->p_x + (cos(c->rota->p_angle) * SPEED);
+        c->rota->p_y = c->rota->p_y + (-sin(c->rota->p_angle) * SPEED);
+        //draw_minimap(c->rota, c);
         cast_ray(c);
     }
-    else if (key == 4)// A
+    else if (key == 4)// A move left
     {
-        if (c->rota->p_y > 0)
-            c->rota->p_y = c->rota->p_y - 1;
-        draw_minimap(c->rota, c);
+        c->rota->p_x = c->rota->p_x + (-cos(c->rota->p_angle) * SPEED);
+        c->rota->p_y = c->rota->p_y + (sin(c->rota->p_angle) * SPEED);
+        //draw_minimap(c->rota, c);
         cast_ray(c);
     }
     return (0);
@@ -399,7 +429,7 @@ void    go_render(t_core *c)
     init_rota(rota, c);
     init_mlx(c);
     c->rota = rota;
-    draw_minimap(rota, c);
+    //draw_minimap(rota, c);
     cast_ray(c);
     mlx_on_event(c->mlx, c->win, MLX_KEYDOWN, key_hook, c);
     mlx_loop(c->mlx);
