@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/29 06:27:07 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/29 06:37:46 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int get_pos_player_x(t_core *c)
             if (c->map->map[x][y] == 'N' || c->map->map[x][y] == 'S'
                 || c->map->map[x][y] == 'E' || c->map->map[x][y] == 'W')
             {
-                printf("x = %d\n", x);
                 return (x * 64 + 32);
             }
             y++;
@@ -51,7 +50,6 @@ int get_pos_player_y(t_core *c)
             if (c->map->map[x][y] == 'N' || c->map->map[x][y] == 'S'
                 || c->map->map[x][y] == 'E' || c->map->map[x][y] == 'W')
             {
-                printf("y = %d\n", y);
                 return (y * 64 + 32);
             }
             y++;
@@ -165,10 +163,8 @@ double  check_horizontal(t_core *c, t_rotation *rota, double ray)
             y_inter = y_inter + y_step;
         x_inter = x_inter + x_step;
     }
-    //printf("HORIZONTAL ==> x_inter = %f || y_inter = %f\n\n", x_inter, y_inter);
     rota->hor_pos_wall_x = x_inter; 
     rota->hor_pos_wall_y = y_inter;
-    //printf("HORIZONTAL ==> x_inter = %f || y_inter = %f\n\n", x_inter, y_inter);
     return (sqrt(pow(y_inter - rota->p_y, 2) + pow(x_inter - rota->p_x, 2)));
 }
 
@@ -359,16 +355,10 @@ void    cast_ray_2d(t_core *c)
     current_ray = normalize_angle(c->rota->p_angle + (c->rota->fov_rd / 2));
     angle_increment = c->rota->fov_rd / SCREEN_LENGHT;
     draw_minimap(c->rota, c);
-    while (nbr_ray < SCREEN_LENGHT)//current_ray >= normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2)))
+    while (nbr_ray < SCREEN_LENGHT)
     {
-        //if (nbr_ray == 1)// || nbr_ray == SCREEN_LENGHT)
-        //{
-            //printf("\n\n===>> angle = %f <<===\n\n", current_ray);
-            //c->rota->p_angle = normalize_angle(c->rota->p_angle);
-            send_ray(c, c->rota, current_ray);
-            render_ray_2d(c, c->rota, current_ray);
-            //render_ray_3d(c, c->rota, current_ray, nbr_ray);
-        //}
+        send_ray(c, c->rota, current_ray);
+        render_ray_2d(c, c->rota, current_ray);
         nbr_ray++;
         current_ray = normalize_angle(current_ray - angle_increment);
     }
@@ -383,16 +373,10 @@ void    cast_ray_3d(t_core *c)
     nbr_ray = 0;
     current_ray = normalize_angle(c->rota->p_angle + (c->rota->fov_rd / 2));
     angle_increment = c->rota->fov_rd / SCREEN_LENGHT;
-    while (nbr_ray < SCREEN_LENGHT)//current_ray >= normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2)))
+    while (nbr_ray < SCREEN_LENGHT)
     {
-        //if (nbr_ray == 1)// || nbr_ray == SCREEN_LENGHT)
-        //{
-            //printf("\n\n===>> angle = %f <<===\n\n", current_ray);
-            //c->rota->p_angle = normalize_angle(c->rota->p_angle);
-            send_ray(c, c->rota, current_ray);
-            //render_ray_2d(c, c->rota, current_ray);
-            render_ray_3d(c, c->rota, current_ray, nbr_ray);
-        //}
+        send_ray(c, c->rota, current_ray);
+        render_ray_3d(c, c->rota, current_ray, nbr_ray);
         nbr_ray++;
         current_ray = normalize_angle(current_ray - angle_increment);
     }
@@ -407,41 +391,35 @@ int key_hook(int key, void *tempo)
     if (key == 79)// fleche droite
     {
         c->rota->p_angle = normalize_angle(c->rota->p_angle + (0.01 * SPEED));
-        //draw_minimap(c->rota, c);
         cast_ray_3d(c);
     }
     else if (key == 80)// fleche gauche
     {
         c->rota->p_angle = normalize_angle(c->rota->p_angle - (0.01 * SPEED));
-        //draw_minimap(c->rota, c);
         cast_ray_3d(c);
     }
     else if (key == 26)// W move up
     {
         c->rota->p_x = c->rota->p_x + (sin(c->rota->p_angle) * SPEED);
         c->rota->p_y = c->rota->p_y + (cos(c->rota->p_angle) * SPEED);
-        //draw_minimap(c->rota, c);
         cast_ray_3d(c);
     }
     else if (key == 22)// S move down
     {
         c->rota->p_x = c->rota->p_x + (-sin(c->rota->p_angle) * SPEED);
         c->rota->p_y = c->rota->p_y + (-cos(c->rota->p_angle) * SPEED);
-        //draw_minimap(c->rota, c);
         cast_ray_3d(c);
     }
     else if (key == 7)// D move right
     {
         c->rota->p_x = c->rota->p_x + (cos(c->rota->p_angle) * SPEED);
         c->rota->p_y = c->rota->p_y + (-sin(c->rota->p_angle) * SPEED);
-        //draw_minimap(c->rota, c);
         cast_ray_3d(c);
     }
     else if (key == 4)// A move left
     {
         c->rota->p_x = c->rota->p_x + (-cos(c->rota->p_angle) * SPEED);
         c->rota->p_y = c->rota->p_y + (sin(c->rota->p_angle) * SPEED);
-        //draw_minimap(c->rota, c);
         cast_ray_3d(c);
     }
     return (0);
