@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/29 05:11:01 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/29 06:28:44 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 // MATH
 # define FOV 60
 # define TILE 15
-# define SCREEN_HEIGHT 720
-# define SCREEN_LENGHT 1280
+# define SCREEN_HEIGHT 1080
+# define SCREEN_LENGHT 1920
 # define RAYS 720
 # define SPEED 4
 
@@ -167,6 +167,6 @@ void	error_player(t_core *c);
 
 //go_render
 void	go_render(t_core *c);
-void    render_ray_2d(t_core *c, t_rotation *rota, double current_ray);
+void    render_ray_3d(t_core *c, t_rotation *rota, double current_ray, int colone);
 
 #endif

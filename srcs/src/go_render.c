@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/29 05:33:21 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/29 06:27:07 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,7 +349,32 @@ void    render_ray_3d(t_core *c, t_rotation *rota, double current_ray, int colon
     render_floor_sky(c, colone, start_pixel, end_pixel);
 }
 
-void    cast_ray(t_core *c)
+void    cast_ray_2d(t_core *c)
+{
+    float   current_ray;
+    float   angle_increment;
+    int     nbr_ray;
+    
+    nbr_ray = 0;
+    current_ray = normalize_angle(c->rota->p_angle + (c->rota->fov_rd / 2));
+    angle_increment = c->rota->fov_rd / SCREEN_LENGHT;
+    draw_minimap(c->rota, c);
+    while (nbr_ray < SCREEN_LENGHT)//current_ray >= normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2)))
+    {
+        //if (nbr_ray == 1)// || nbr_ray == SCREEN_LENGHT)
+        //{
+            //printf("\n\n===>> angle = %f <<===\n\n", current_ray);
+            //c->rota->p_angle = normalize_angle(c->rota->p_angle);
+            send_ray(c, c->rota, current_ray);
+            render_ray_2d(c, c->rota, current_ray);
+            //render_ray_3d(c, c->rota, current_ray, nbr_ray);
+        //}
+        nbr_ray++;
+        current_ray = normalize_angle(current_ray - angle_increment);
+    }
+}
+
+void    cast_ray_3d(t_core *c)
 {
     float   current_ray;
     float   angle_increment;
@@ -371,6 +396,7 @@ void    cast_ray(t_core *c)
         nbr_ray++;
         current_ray = normalize_angle(current_ray - angle_increment);
     }
+    cast_ray_2d(c);
 }
 
 int key_hook(int key, void *tempo)
@@ -382,41 +408,41 @@ int key_hook(int key, void *tempo)
     {
         c->rota->p_angle = normalize_angle(c->rota->p_angle + (0.01 * SPEED));
         //draw_minimap(c->rota, c);
-        cast_ray(c);
+        cast_ray_3d(c);
     }
     else if (key == 80)// fleche gauche
     {
         c->rota->p_angle = normalize_angle(c->rota->p_angle - (0.01 * SPEED));
         //draw_minimap(c->rota, c);
-        cast_ray(c);
+        cast_ray_3d(c);
     }
     else if (key == 26)// W move up
     {
         c->rota->p_x = c->rota->p_x + (sin(c->rota->p_angle) * SPEED);
         c->rota->p_y = c->rota->p_y + (cos(c->rota->p_angle) * SPEED);
         //draw_minimap(c->rota, c);
-        cast_ray(c);
+        cast_ray_3d(c);
     }
     else if (key == 22)// S move down
     {
         c->rota->p_x = c->rota->p_x + (-sin(c->rota->p_angle) * SPEED);
         c->rota->p_y = c->rota->p_y + (-cos(c->rota->p_angle) * SPEED);
         //draw_minimap(c->rota, c);
-        cast_ray(c);
+        cast_ray_3d(c);
     }
     else if (key == 7)// D move right
     {
         c->rota->p_x = c->rota->p_x + (cos(c->rota->p_angle) * SPEED);
         c->rota->p_y = c->rota->p_y + (-sin(c->rota->p_angle) * SPEED);
         //draw_minimap(c->rota, c);
-        cast_ray(c);
+        cast_ray_3d(c);
     }
     else if (key == 4)// A move left
     {
         c->rota->p_x = c->rota->p_x + (-cos(c->rota->p_angle) * SPEED);
         c->rota->p_y = c->rota->p_y + (sin(c->rota->p_angle) * SPEED);
         //draw_minimap(c->rota, c);
-        cast_ray(c);
+        cast_ray_3d(c);
     }
     return (0);
 }
@@ -429,8 +455,8 @@ void    go_render(t_core *c)
     init_rota(rota, c);
     init_mlx(c);
     c->rota = rota;
-    //draw_minimap(rota, c);
-    cast_ray(c);
+    draw_minimap(rota, c);
+    cast_ray_3d(c);
     mlx_on_event(c->mlx, c->win, MLX_KEYDOWN, key_hook, c);
     mlx_loop(c->mlx);
     mlx_destroy_window(c->mlx, c->win);
