@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/29 06:52:36 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:08:34 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ void    pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color)
     
     k = 0;
     j = 0;
-    while (k <= 64)
+    while (k <= 16)
     {
-        while (j <= 64)
+        while (j <= 16)
         {
-            if (j == 0 || k == 0 || j == 64  || k == 64)
-                mlx_pixel_put(c->mlx, c->win, (y * 64) + j, (x * 64) + k , 0xFF00c401);
-            else if ((y * 64) + j == rota->p_y && (x * 64) + k == rota->p_x)
-                mlx_pixel_put(c->mlx, c->win, (y * 64) + j, (x * 64) + k , 0xFF03eb00);
+            if (j == 0 || k == 0 || j == 16  || k == 16)
+                mlx_pixel_put(c->mlx, c->win, (y * 16) + j, (x * 16) + k , 0xFF00c401);
+            else if ((y * 16) + j == rota->p_y_2d && (x * 16) + k == rota->p_x_2d)
+                mlx_pixel_put(c->mlx, c->win, (y * 16) + j, (x * 16) + k , 0xFF03eb00);
             else
-                mlx_pixel_put(c->mlx, c->win, (y * 64) + j, (x * 64) + k , color);
+                mlx_pixel_put(c->mlx, c->win, (y * 16) + j, (x * 16) + k , color);
             j++;
         }   
         j = 0;
@@ -94,6 +94,13 @@ void    render_floor_sky(t_core *c, int colone, double start_pixel, double end_p
     while (x < end_pixel)
         mlx_pixel_put(c->mlx, c->win, colone, x++, 0xff01bab9);
 }
+int check_collision(t_core *c, double pos_x, double pos_y)
+{
+    if (c->map->map[(int)floor(pos_x) / 64][(int)floor(pos_y) / 64] == '1')
+        return (0);
+    else
+        return (1);
+}
 
 int key_hook(int key, void *tempo)
 {
@@ -112,27 +119,41 @@ int key_hook(int key, void *tempo)
     }
     else if (key == 26)// W move up
     {
-        c->rota->p_x = c->rota->p_x + (sin(c->rota->p_angle) * SPEED);
-        c->rota->p_y = c->rota->p_y + (cos(c->rota->p_angle) * SPEED);
-        cast_ray_3d(c);
+        //if (check_collision(c, c->rota->p_x + (sin(c->rota->p_angle) * SPEED), c->rota->p_y + (cos(c->rota->p_angle) * SPEED)) == 1
+        //    && check_collision(c, c->rota->p_x + (sin(c->rota->p_angle) * SPEED), c->rota->p_y) == 1
+        //    && check_collision(c, c->rota->p_x, c->rota->p_y + (cos(c->rota->p_angle) * SPEED)) == 1)
+        //{
+            c->rota->p_x = c->rota->p_x + (sin(c->rota->p_angle) * SPEED);
+            c->rota->p_y = c->rota->p_y + (cos(c->rota->p_angle) * SPEED);
+            cast_ray_3d(c);
+        //}
     }
     else if (key == 22)// S move down
     {
-        c->rota->p_x = c->rota->p_x + (-sin(c->rota->p_angle) * SPEED);
-        c->rota->p_y = c->rota->p_y + (-cos(c->rota->p_angle) * SPEED);
-        cast_ray_3d(c);
+        //if (check_collision(c, c->rota->p_x + (-sin(c->rota->p_angle) * SPEED), c->rota->p_y + (-cos(c->rota->p_angle) * SPEED)) == 1)
+        //{
+            c->rota->p_x = c->rota->p_x + (-sin(c->rota->p_angle) * SPEED);
+            c->rota->p_y = c->rota->p_y + (-cos(c->rota->p_angle) * SPEED);
+            cast_ray_3d(c);
+        //}
     }
-    else if (key == 7)// D move right
+    else if (key == 4)// D move right
     {
-        c->rota->p_x = c->rota->p_x + (cos(c->rota->p_angle) * SPEED);
-        c->rota->p_y = c->rota->p_y + (-sin(c->rota->p_angle) * SPEED);
-        cast_ray_3d(c);
+        //if (check_collision(c, c->rota->p_x + (cos(c->rota->p_angle) * SPEED), c->rota->p_y + (-sin(c->rota->p_angle) * SPEED)) == 1)
+        //{
+            c->rota->p_x = c->rota->p_x + (cos(c->rota->p_angle) * SPEED);
+            c->rota->p_y = c->rota->p_y + (-sin(c->rota->p_angle) * SPEED);
+            cast_ray_3d(c);
+        //}
     }
-    else if (key == 4)// A move left
+    else if (key == 7)// A move left
     {
-        c->rota->p_x = c->rota->p_x + (-cos(c->rota->p_angle) * SPEED);
-        c->rota->p_y = c->rota->p_y + (sin(c->rota->p_angle) * SPEED);
-        cast_ray_3d(c);
+        //if (check_collision(c, c->rota->p_x + (-cos(c->rota->p_angle) * SPEED), c->rota->p_y + (sin(c->rota->p_angle) * SPEED)) == 1)
+        //{
+            c->rota->p_x = c->rota->p_x + (-cos(c->rota->p_angle) * SPEED);
+            c->rota->p_y = c->rota->p_y + (sin(c->rota->p_angle) * SPEED);
+            cast_ray_3d(c);
+        //}
     }
     return (0);
 }

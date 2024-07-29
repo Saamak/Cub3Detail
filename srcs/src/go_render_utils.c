@@ -6,13 +6,13 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:38:45 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/29 06:40:11 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/29 07:41:10 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int get_pos_player_x(t_core *c)
+int get_pos_player_x(t_core *c, int check)
 {
     int x;
     int y;
@@ -26,7 +26,12 @@ int get_pos_player_x(t_core *c)
             if (c->map->map[x][y] == 'N' || c->map->map[x][y] == 'S'
                 || c->map->map[x][y] == 'E' || c->map->map[x][y] == 'W')
             {
-                return (x * 64 + 32);
+                if (check == 0)
+                    return (x * 16 + 8);
+                else if (check == 2)
+                    return (x);
+                else
+                    return (x * 64 + 32);
             }
             y++;
         }
@@ -36,7 +41,7 @@ int get_pos_player_x(t_core *c)
     return (0);
 }
 
-int get_pos_player_y(t_core *c)
+int get_pos_player_y(t_core *c, int check)
 {
     int x;
     int y;
@@ -50,7 +55,12 @@ int get_pos_player_y(t_core *c)
             if (c->map->map[x][y] == 'N' || c->map->map[x][y] == 'S'
                 || c->map->map[x][y] == 'E' || c->map->map[x][y] == 'W')
             {
-                return (y * 64 + 32);
+                if (check == 0)
+                    return (y * 16 + 8);
+                else if (check == 2)
+                    return (y);
+                else
+                    return (y * 64 + 32);
             }
             y++;
         }

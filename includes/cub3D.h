@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/29 06:52:32 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/29 07:39:21 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ typedef struct s_rotation
 {
 	double	p_angle;
 	int	p_x;
+	int	p_x_2d;
 	int	p_y;
+	int	p_y_2d;
 	float	fov_rd;
 	double	ray_step;
 	int		hor_or_ver;
@@ -64,6 +66,8 @@ typedef struct s_rotation
 	float	ver_pos_wall_x;
 	float	ver_pos_wall_y;
 	float	distance;
+	int		pos_player_x;
+	int		pos_player_y;
 }t_rotation;
 
 typedef struct s_map
@@ -177,8 +181,8 @@ int key_hook(int key, void *tempo);
 //go_render_utils
 double  normalize_angle(double ray);
 double  get_angle_player(t_core *c);
-int get_pos_player_y(t_core *c);
-int get_pos_player_x(t_core *c);
+int get_pos_player_y(t_core *c, int check);
+int get_pos_player_x(t_core *c, int check);
 
 //go_render_init
 void    init_rota(t_rotation *rota, t_core *c);
