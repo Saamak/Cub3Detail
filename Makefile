@@ -6,7 +6,7 @@
 #    By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 17:44:47 by kprigent          #+#    #+#              #
-#    Updated: 2024/07/24 05:59:36 by pirulenc         ###   ########.fr        #
+#    Updated: 2024/07/29 06:52:31 by pirulenc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,10 @@ SRCS = srcs/src/main.c \
 		srcs/src/map_data_texture.c \
 		srcs/src/map_data_color.c \
 		srcs/src/go_render.c \
+		srcs/src/go_render_utils.c \
+		srcs/src/go_render_init.c \
+		srcs/src/ray_casting_2D.c \
+		srcs/src/ray_casting_3D.c \
 		srcs/src/error_two.c \
 
 OBJTS = $(SRCS:.c=.o)

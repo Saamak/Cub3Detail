@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/29 06:28:44 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/07/29 06:52:32 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,34 @@ void	error_player(t_core *c);
 
 //go_render
 void	go_render(t_core *c);
-void    render_ray_3d(t_core *c, t_rotation *rota, double current_ray, int colone);
+int hit_wall(double x, double y, double ray, t_core *c);
+void    pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color);
+void    draw_minimap(t_rotation *rota, t_core *c);
+void    render_wall(t_core *c, int colone, double start_pixel, double end_pixel);
+void    render_floor_sky(t_core *c, int colone, double start_pixel, double end_pixel);
+int key_hook(int key, void *tempo);
 
+//go_render_utils
+double  normalize_angle(double ray);
+double  get_angle_player(t_core *c);
+int get_pos_player_y(t_core *c);
+int get_pos_player_x(t_core *c);
+
+//go_render_init
+void    init_rota(t_rotation *rota, t_core *c);
+void    init_mlx(t_core *c);
+
+//ray_casting_2D
+double  check_horizontal_2d(t_core *c, t_rotation *rota, double ray);
+double  check_vertical_2d(t_core *c, t_rotation *rota, double ray);
+void    send_ray_2d(t_core *c, t_rotation *rota, float current_ray);
+void    render_ray_2d(t_core *c, t_rotation *rota, double current_ray);
+void    cast_ray_2d(t_core *c);
+
+//ray_casting_3D
+double  check_horizontal_3d(t_core *c, t_rotation *rota, double ray);
+double  check_vertical_3d(t_core *c, t_rotation *rota, double ray);
+void    send_ray_3d(t_core *c, t_rotation *rota, float current_ray);
+void    render_ray_3d(t_core *c, t_rotation *rota, double current_ray, int colone);
+void    cast_ray_3d(t_core *c);
 #endif
