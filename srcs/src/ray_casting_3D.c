@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:44:05 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/29 06:52:32 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/02 23:10:11 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,14 @@ void    cast_ray_3d(t_core *c)
     int     nbr_ray;
     
     nbr_ray = 0;
-    current_ray = normalize_angle(c->rota->p_angle + (c->rota->fov_rd / 2));
+    current_ray = normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2));
     angle_increment = c->rota->fov_rd / SCREEN_LENGHT;
     while (nbr_ray < SCREEN_LENGHT)
     {
         send_ray_3d(c, c->rota, current_ray);
         render_ray_3d(c, c->rota, current_ray, nbr_ray);
         nbr_ray++;
-        current_ray = normalize_angle(current_ray - angle_increment);
+        current_ray = normalize_angle(current_ray + angle_increment);
     }
     cast_ray_2d(c);
 }

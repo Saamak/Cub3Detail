@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/29 09:08:34 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/02 23:38:59 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,41 +119,47 @@ int key_hook(int key, void *tempo)
     }
     else if (key == 26)// W move up
     {
-        //if (check_collision(c, c->rota->p_x + (sin(c->rota->p_angle) * SPEED), c->rota->p_y + (cos(c->rota->p_angle) * SPEED)) == 1
-        //    && check_collision(c, c->rota->p_x + (sin(c->rota->p_angle) * SPEED), c->rota->p_y) == 1
-        //    && check_collision(c, c->rota->p_x, c->rota->p_y + (cos(c->rota->p_angle) * SPEED)) == 1)
-        //{
+        if (check_collision(c, c->rota->p_x + (sin(c->rota->p_angle) * SPEED), c->rota->p_y + (cos(c->rota->p_angle) * SPEED)) == 1
+            && check_collision(c, c->rota->p_x + (sin(c->rota->p_angle) * SPEED), c->rota->p_y) == 1
+            && check_collision(c, c->rota->p_x, c->rota->p_y + (cos(c->rota->p_angle) * SPEED)) == 1)
+        {
             c->rota->p_x = c->rota->p_x + (sin(c->rota->p_angle) * SPEED);
             c->rota->p_y = c->rota->p_y + (cos(c->rota->p_angle) * SPEED);
             cast_ray_3d(c);
-        //}
+        }
     }
     else if (key == 22)// S move down
     {
-        //if (check_collision(c, c->rota->p_x + (-sin(c->rota->p_angle) * SPEED), c->rota->p_y + (-cos(c->rota->p_angle) * SPEED)) == 1)
-        //{
+        if (check_collision(c, c->rota->p_x + (-sin(c->rota->p_angle) * SPEED), c->rota->p_y + (-cos(c->rota->p_angle) * SPEED)) == 1
+            && check_collision(c, c->rota->p_x + (-sin(c->rota->p_angle) * SPEED), c->rota->p_y) == 1
+            && check_collision(c, c->rota->p_x, c->rota->p_y + (-cos(c->rota->p_angle) * SPEED)) == 1)
+        {
             c->rota->p_x = c->rota->p_x + (-sin(c->rota->p_angle) * SPEED);
             c->rota->p_y = c->rota->p_y + (-cos(c->rota->p_angle) * SPEED);
             cast_ray_3d(c);
-        //}
+        }
     }
     else if (key == 4)// D move right
     {
-        //if (check_collision(c, c->rota->p_x + (cos(c->rota->p_angle) * SPEED), c->rota->p_y + (-sin(c->rota->p_angle) * SPEED)) == 1)
-        //{
-            c->rota->p_x = c->rota->p_x + (cos(c->rota->p_angle) * SPEED);
-            c->rota->p_y = c->rota->p_y + (-sin(c->rota->p_angle) * SPEED);
-            cast_ray_3d(c);
-        //}
-    }
-    else if (key == 7)// A move left
-    {
-        //if (check_collision(c, c->rota->p_x + (-cos(c->rota->p_angle) * SPEED), c->rota->p_y + (sin(c->rota->p_angle) * SPEED)) == 1)
-        //{
+        if (check_collision(c, c->rota->p_x + (-cos(c->rota->p_angle) * SPEED), c->rota->p_y + (sin(c->rota->p_angle) * SPEED)) == 1
+            && check_collision(c, c->rota->p_x + (-cos(c->rota->p_angle) * SPEED), c->rota->p_y) == 1
+            && check_collision(c, c->rota->p_x, c->rota->p_y + (sin(c->rota->p_angle) * SPEED)) == 1)
+        {
             c->rota->p_x = c->rota->p_x + (-cos(c->rota->p_angle) * SPEED);
             c->rota->p_y = c->rota->p_y + (sin(c->rota->p_angle) * SPEED);
             cast_ray_3d(c);
-        //}
+        }
+    }
+    else if (key == 7)// A move left
+    {
+        if (check_collision(c, c->rota->p_x + (cos(c->rota->p_angle) * SPEED), c->rota->p_y + (-sin(c->rota->p_angle) * SPEED)) == 1
+            && check_collision(c, c->rota->p_x + (cos(c->rota->p_angle) * SPEED), c->rota->p_y) == 1
+            && check_collision(c, c->rota->p_x, c->rota->p_y + (-sin(c->rota->p_angle) * SPEED)) == 1)
+        {
+            c->rota->p_x = c->rota->p_x + (cos(c->rota->p_angle) * SPEED);
+            c->rota->p_y = c->rota->p_y + (-sin(c->rota->p_angle) * SPEED);
+            cast_ray_3d(c);
+        }
     }
     return (0);
 }
