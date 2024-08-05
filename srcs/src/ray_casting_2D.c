@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:41:38 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/07/29 09:05:36 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/06 01:20:00 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,56 @@ double  check_view(t_core *c, t_rotation *rota, double ray)
     return (0);
 }
 
+//double  check_horizontal_2d(t_core *c, t_rotation *rota, double ray)
+//{
+//    double  x_inter;
+//    double  y_inter;
+//    double  x_step;
+//    double  y_step;
+//
+//    (void)rota;
+//    (void)c;
+//    if (ray > M_PI && ray < 2 * M_PI)
+//    {
+//        x_step = -16;
+//        x_inter = (rota->p_x_2d / 16) * 16 - 1;
+//        y_inter = rota->p_y_2d + (x_inter - rota->p_x_2d) / tan(ray);
+//    }
+//    else
+//    {
+//        x_step = 16;
+//        x_inter = (rota->p_x_2d / 16) * 16 + 16;
+//        y_inter = rota->p_y_2d + (x_inter - rota->p_x_2d) / tan(ray);
+//    }
+//    y_step = 16 / tan(ray);
+//    while (x_inter > 0 && x_inter < c->map->height_line * 16  && y_inter > 0 && y_inter < c->map->lenght_line * 16 && c->map->map[(int)(x_inter / 16)][(int)(y_inter / 16)] != '1')
+//    {
+//        if (ray > M_PI && ray < 2 * M_PI)
+//            y_inter = y_inter - y_step;
+//        else
+//            y_inter = y_inter + y_step;
+//        x_inter = x_inter + x_step;
+//    }
+//    rota->hor_pos_wall_x = x_inter; 
+//    rota->hor_pos_wall_y = y_inter;
+//    return (sqrt(pow(y_inter - rota->p_y_2d, 2) + pow(x_inter - rota->p_x_2d, 2)));
+//}
+
 double  check_horizontal_2d(t_core *c, t_rotation *rota, double ray)
 {
     double  x_inter;
     double  y_inter;
     double  x_step;
     double  y_step;
+    int     map_x;
+    int     map_y;
 
     (void)rota;
     (void)c;
     if (ray > M_PI && ray < 2 * M_PI)
     {
         x_step = -16;
-        x_inter = (rota->p_x_2d / 16) * 16 - 1;
+        x_inter = (rota->p_x_2d / 16) * 16 - 0.0001;
         y_inter = rota->p_y_2d + (x_inter - rota->p_x_2d) / tan(ray);
     }
     else
@@ -87,8 +124,12 @@ double  check_horizontal_2d(t_core *c, t_rotation *rota, double ray)
         y_inter = rota->p_y_2d + (x_inter - rota->p_x_2d) / tan(ray);
     }
     y_step = 16 / tan(ray);
-    while (x_inter > 0 && x_inter < c->map->height_line * 16  && y_inter > 0 && y_inter < c->map->lenght_line * 16 && c->map->map[(int)(x_inter / 16)][(int)(y_inter / 16)] != '1')
+    while (x_inter > 0 && x_inter < c->map->height_line * 16  && y_inter > 0 && y_inter < c->map->lenght_line * 16)
     {
+        map_x = (int)(x_inter / 16);
+        map_y = (int)(y_inter / 16);
+        if (c->map->map[map_x][map_y] == '1')
+            break;
         if (ray > M_PI && ray < 2 * M_PI)
             y_inter = y_inter - y_step;
         else
@@ -100,19 +141,59 @@ double  check_horizontal_2d(t_core *c, t_rotation *rota, double ray)
     return (sqrt(pow(y_inter - rota->p_y_2d, 2) + pow(x_inter - rota->p_x_2d, 2)));
 }
 
+//double  check_vertical_2d(t_core *c, t_rotation *rota, double ray)
+//{
+//    double  x_inter;
+//    double  y_inter;
+//    double  x_step;
+//    double  y_step;
+//
+//    (void)rota;
+//    (void)c;
+//    if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
+//    {
+//        y_step = -16;
+//        y_inter = (rota->p_y_2d / 16) * 16 - 1;
+//        x_inter = rota->p_x_2d + (y_inter - rota->p_y_2d) * tan(ray);
+//    }
+//    else
+//    {
+//        y_step = 16;
+//        y_inter = (rota->p_y_2d / 16) * 16 + 16;
+//        x_inter = rota->p_x_2d + (y_inter - rota->p_y_2d) * tan(ray);
+//    }
+//    x_step = 16 * tan(ray);
+//    while (x_inter > 0 && x_inter < c->map->height_line * 16  && y_inter > 0 && y_inter < c->map->lenght_line * 16 && c->map->map[(int)(x_inter / 16)][(int)(y_inter / 16)] != '1')
+//    {
+//        if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
+//        {
+//            x_inter = x_inter - x_step;
+//        }
+//        else
+//            x_inter = x_inter + x_step;
+//        y_inter = y_inter + y_step;
+//    }
+//    rota->ver_pos_wall_x = x_inter;
+//    rota->ver_pos_wall_y = y_inter;
+//    return (sqrt(pow(y_inter - rota->p_y_2d, 2) + pow(x_inter - rota->p_x_2d, 2)));
+//}
+
+
 double  check_vertical_2d(t_core *c, t_rotation *rota, double ray)
 {
     double  x_inter;
     double  y_inter;
     double  x_step;
     double  y_step;
+    int     map_x;
+    int     map_y;
 
     (void)rota;
     (void)c;
     if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
     {
         y_step = -16;
-        y_inter = (rota->p_y_2d / 16) * 16 - 1;
+        y_inter = (rota->p_y_2d / 16) * 16 - 0.0001;
         x_inter = rota->p_x_2d + (y_inter - rota->p_y_2d) * tan(ray);
     }
     else
@@ -122,8 +203,12 @@ double  check_vertical_2d(t_core *c, t_rotation *rota, double ray)
         x_inter = rota->p_x_2d + (y_inter - rota->p_y_2d) * tan(ray);
     }
     x_step = 16 * tan(ray);
-    while (x_inter > 0 && x_inter < c->map->height_line * 16  && y_inter > 0 && y_inter < c->map->lenght_line * 16 && c->map->map[(int)(x_inter / 16)][(int)(y_inter / 16)] != '1')
+    while (x_inter > 0 && x_inter < c->map->height_line * 16  && y_inter > 0 && y_inter < c->map->lenght_line * 16)
     {
+        map_x = (int)(x_inter / 16);
+        map_y = (int)(y_inter / 16);
+        if (c->map->map[map_x][map_y] == '1')
+            break;
         if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
         {
             x_inter = x_inter - x_step;
