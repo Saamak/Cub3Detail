@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_3D.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:44:05 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/02 23:10:11 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/03 02:01:25 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ double  check_horizontal_3d(t_core *c, t_rotation *rota, double ray)
             y_inter = y_inter + y_step;
         x_inter = x_inter + x_step;
     }
-    rota->hor_pos_wall_x = x_inter; 
+    rota->hor_pos_wall_x = x_inter;
     rota->hor_pos_wall_y = y_inter;
     return (sqrt(pow(y_inter - rota->p_y, 2) + pow(x_inter - rota->p_x, 2)));
 }
@@ -113,12 +113,31 @@ void    render_ray_3d(t_core *c, t_rotation *rota, double current_ray, int colon
     wall = (64 / rota->distance) * ((SCREEN_LENGHT / 2) / tan(rota->fov_rd / 2));
     start_pixel = (SCREEN_HEIGHT / 2) + (wall / 2);
     end_pixel = (SCREEN_HEIGHT / 2) - (wall / 2);
-    if (start_pixel > SCREEN_HEIGHT)
-        start_pixel = SCREEN_HEIGHT;
-    if (end_pixel < 0)
-        end_pixel = 0;
+    //if (start_pixel > SCREEN_HEIGHT)
+    //    start_pixel = SCREEN_HEIGHT;
+    //if (end_pixel < 0)
+    //    end_pixel = 0;
     render_wall(c, colone, start_pixel, end_pixel);
     render_floor_sky(c, colone, start_pixel, end_pixel);
+}
+
+void	reset_screen(t_core *c)
+{
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
+	while (x < SCREEN_LENGHT)
+	{
+		while (y < SCREEN_HEIGHT)
+		{
+			mlx_pixel_put(c->mlx, c->win, x, y, 0x00000000);
+			y++;
+		}
+		y = 0;
+		x++;
+	}
 }
 
 void    cast_ray_3d(t_core *c)
@@ -126,7 +145,8 @@ void    cast_ray_3d(t_core *c)
     float   current_ray;
     float   angle_increment;
     int     nbr_ray;
-    
+
+	reset_screen(c);
     nbr_ray = 0;
     current_ray = normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2));
     angle_increment = c->rota->fov_rd / SCREEN_LENGHT;
@@ -137,5 +157,6 @@ void    cast_ray_3d(t_core *c)
         nbr_ray++;
         current_ray = normalize_angle(current_ray + angle_increment);
     }
-    cast_ray_2d(c);
+    //cast_ray_2d(c);
+	//mlx_put_image_to_window(c->mlx, c->win, c->img, 0, 0);
 }

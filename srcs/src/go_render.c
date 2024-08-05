@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   go_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/02 23:38:59 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/03 02:29:52 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int hit_wall(double x, double y, double ray, t_core *c)
 
     if (x < 0 || y < 0)
         return (1);
-    x_map = floor(x / 64);  
+    x_map = floor(x / 64);
     y_map = floor(y / 64);
     if (x_map >= c->map->height_line || y_map >= c->map->lenght_line)
         return (1);
@@ -35,7 +35,7 @@ void    pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color)
     int j;
     int k;
     (void)rota;
-    
+
     k = 0;
     j = 0;
     while (k <= 16)
@@ -49,7 +49,7 @@ void    pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color)
             else
                 mlx_pixel_put(c->mlx, c->win, (y * 16) + j, (x * 16) + k , color);
             j++;
-        }   
+        }
         j = 0;
         k++;
     }
@@ -79,8 +79,24 @@ void    draw_minimap(t_rotation *rota, t_core *c)
 
 void    render_wall(t_core *c, int colone, double start_pixel, double end_pixel)
 {
+	int	color;
+	float	x;
+	float	steps;
+
+	x = 64;
+	steps = 64 / (start_pixel - end_pixel);
+	//printf("steps = %f || height_wall = %f\n", steps, start_pixel - end_pixel);
     while (start_pixel > end_pixel)
-        mlx_pixel_put(c->mlx, c->win, colone, start_pixel--, 0xff9535ff);
+	{
+			if (c->rota->hor_or_ver == 0)
+				color = mlx_get_image_pixel(c->mlx, c->img, (int)c->rota->ver_pos_wall_x % 64, (int)floor(x));
+			if (c->rota->hor_or_ver == 1)
+				color = mlx_get_image_pixel(c->mlx, c->img, (int)c->rota->hor_pos_wall_y % 64, (int)floor(x));
+			mlx_pixel_put(c->mlx, c->win, colone, start_pixel--, color);
+			x = x - (steps * 2);
+			start_pixel--;
+	}
+        //mlx_pixel_put(c->mlx, c->win, colone, start_pixel--, 0xff9535ff);
 }
 
 void    render_floor_sky(t_core *c, int colone, double start_pixel, double end_pixel)
@@ -89,10 +105,10 @@ void    render_floor_sky(t_core *c, int colone, double start_pixel, double end_p
 
     x = start_pixel;
     while (x < SCREEN_HEIGHT)
-        mlx_pixel_put(c->mlx, c->win, colone, x++, 0xff01ba05);
+        mlx_pixel_put(c->mlx, c->win, colone, x++, 0xff058229);
     x = 0;
     while (x < end_pixel)
-        mlx_pixel_put(c->mlx, c->win, colone, x++, 0xff01bab9);
+        mlx_pixel_put(c->mlx, c->win, colone, x++, 0xff00b7ef);
 }
 int check_collision(t_core *c, double pos_x, double pos_y)
 {
@@ -172,9 +188,11 @@ void    go_render(t_core *c)
     init_rota(rota, c);
     init_mlx(c);
     c->rota = rota;
+	put_image(c);
     draw_minimap(rota, c);
     cast_ray_3d(c);
     mlx_on_event(c->mlx, c->win, MLX_KEYDOWN, key_hook, c);
+	//mlx_put_image_to_window(c->mlx, c->win, c->img, 0, 0);
     mlx_loop(c->mlx);
     mlx_destroy_window(c->mlx, c->win);
     mlx_destroy_display(c->mlx);

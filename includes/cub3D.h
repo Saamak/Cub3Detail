@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/29 07:39:21 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/03 01:44:28 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 // MATH
 # define FOV 60
 # define TILE 15
-# define SCREEN_HEIGHT 1080
-# define SCREEN_LENGHT 1920
+# define SCREEN_HEIGHT 720
+# define SCREEN_LENGHT 1280
 # define RAYS 720
 # define SPEED 4
 
@@ -106,6 +106,7 @@ typedef struct s_texture
 
 typedef struct map_core
 {
+	void		*img;
 	void		*mlx;
 	void		*win;
 	int			data_ok;
@@ -201,4 +202,7 @@ double  check_vertical_3d(t_core *c, t_rotation *rota, double ray);
 void    send_ray_3d(t_core *c, t_rotation *rota, float current_ray);
 void    render_ray_3d(t_core *c, t_rotation *rota, double current_ray, int colone);
 void    cast_ray_3d(t_core *c);
+
+// Texturiize
+void	put_image(t_core *c);
 #endif
