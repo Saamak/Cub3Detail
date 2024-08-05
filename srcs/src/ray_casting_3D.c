@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_3D.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:44:05 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/03 02:01:25 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/06 01:25:05 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ double  check_horizontal_3d(t_core *c, t_rotation *rota, double ray)
     double  y_inter;
     double  x_step;
     double  y_step;
+    int     map_x;
+    int     map_y;
 
     (void)rota;
     (void)c;
     if (ray > M_PI && ray < 2 * M_PI)
     {
         x_step = -64;
-        x_inter = (rota->p_x / 64) * 64 - 1;
+        x_inter = (rota->p_x / 64) * 64 - 0.0001;
         y_inter = rota->p_y + (x_inter - rota->p_x) / tan(ray);
     }
     else
@@ -34,8 +36,13 @@ double  check_horizontal_3d(t_core *c, t_rotation *rota, double ray)
         y_inter = rota->p_y + (x_inter - rota->p_x) / tan(ray);
     }
     y_step = 64 / tan(ray);
-    while (x_inter > 0 && x_inter < c->map->height_line * 64  && y_inter > 0 && y_inter < c->map->lenght_line * 64 && c->map->map[(int)(x_inter / 64)][(int)(y_inter / 64)] != '1')
+    while (x_inter > 0 && x_inter < c->map->height_line * 64
+        && y_inter > 0 && y_inter < c->map->lenght_line * 64)
     {
+        map_x = (int)(x_inter / 64);
+        map_y = (int)(y_inter / 64);
+        if (c->map->map[map_x][map_y] == '1')
+            break;
         if (ray > M_PI && ray < 2 * M_PI)
             y_inter = y_inter - y_step;
         else
@@ -53,13 +60,15 @@ double  check_vertical_3d(t_core *c, t_rotation *rota, double ray)
     double  y_inter;
     double  x_step;
     double  y_step;
+    int     map_x;
+    int     map_y;
 
     (void)rota;
     (void)c;
     if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
     {
         y_step = -64;
-        y_inter = (rota->p_y / 64) * 64 - 1;
+        y_inter = (rota->p_y / 64) * 64 - 0.0001;
         x_inter = rota->p_x + (y_inter - rota->p_y) * tan(ray);
     }
     else
@@ -69,12 +78,15 @@ double  check_vertical_3d(t_core *c, t_rotation *rota, double ray)
         x_inter = rota->p_x + (y_inter - rota->p_y) * tan(ray);
     }
     x_step = 64 * tan(ray);
-    while (x_inter > 0 && x_inter < c->map->height_line * 64  && y_inter > 0 && y_inter < c->map->lenght_line * 64 && c->map->map[(int)(x_inter / 64)][(int)(y_inter / 64)] != '1')
+    while (x_inter > 0 && x_inter < c->map->height_line * 64
+        && y_inter > 0 && y_inter < c->map->lenght_line * 64)
     {
+        map_x = (int)(x_inter / 64);
+        map_y = (int)(y_inter / 64);
+        if (c->map->map[map_x][map_y] == '1')
+            break;
         if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
-        {
             x_inter = x_inter - x_step;
-        }
         else
             x_inter = x_inter + x_step;
         y_inter = y_inter + y_step;
