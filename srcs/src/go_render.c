@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/03 02:29:52 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:40:54 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,16 +183,18 @@ int key_hook(int key, void *tempo)
 void    go_render(t_core *c)
 {
     t_rotation  *rota;
+	MLX_API int mlx_mouse_hide();
 
     rota = malloc(sizeof(t_rotation));
     init_rota(rota, c);
     init_mlx(c);
+	mlx_mouse_hide();
     c->rota = rota;
 	put_image(c);
     draw_minimap(rota, c);
     cast_ray_3d(c);
     mlx_on_event(c->mlx, c->win, MLX_KEYDOWN, key_hook, c);
-	//mlx_put_image_to_window(c->mlx, c->win, c->img, 0, 0);
+	mlx_on_event(c->mlx, c->win, MLX_WINDOW_EVENT, window_hook, c->mlx);
     mlx_loop(c->mlx);
     mlx_destroy_window(c->mlx, c->win);
     mlx_destroy_display(c->mlx);

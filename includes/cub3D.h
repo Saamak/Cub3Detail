@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/03 01:44:28 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:31:54 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ void	error_extension(t_core *c);
 void	error_argument(t_core *c);
 void	error_wall(t_core *c, int i, int j);
 void	error_player(t_core *c);
+int		window_hook(int event, void* param);
 
 //go_render
 void	go_render(t_core *c);

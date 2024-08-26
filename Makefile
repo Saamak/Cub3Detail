@@ -6,7 +6,7 @@
 #    By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 17:44:47 by kprigent          #+#    #+#              #
-#    Updated: 2024/08/02 23:27:44 by ppitzini         ###   ########.fr        #
+#    Updated: 2024/08/26 15:32:26 by ppitzini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRCS = srcs/src/main.c \
 		srcs/src/ray_casting_2D.c \
 		srcs/src/ray_casting_3D.c \
 		srcs/src/error_two.c \
-		srcs/src/texturize.c
+		srcs/src/texturize.c \
+		srcs/src/close_window.c
 
 OBJTS = $(SRCS:.c=.o)
 
