@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:37:25 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 16:37:27 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:09:17 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void	count_map_height(t_core *c)
 
 void	count_map_lenght(t_core *c)
 {
-	int	i = 0;
+	int	i;
 	int	line_lenght;
 
+	i = 0;
 	c->map->lenght_line = 0;
 	while (i < c->map->height_line)
 	{
@@ -76,4 +77,31 @@ char	*ft_strdup_end(const char *src)
 	}
 	dest[i] = '\0';
 	return (dest);
+}
+
+char	*strdup_and_pad(char *src, int len)
+{
+	int		src_len;
+	char	*dst;
+	int		i;
+
+	src_len = ft_strlen(src);
+	if (src_len > len)
+		len = src_len;
+	dst = malloc(len + 1);
+	if (!dst)
+		return (NULL);
+	i = 0;
+	while (i < src_len)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	while (i < len)
+	{
+		dst[i] = ' ';
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }

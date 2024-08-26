@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:18 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 16:25:20 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:13:14 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,9 @@ void	print_map(char **map)
 	while (map[i])
 	{
 		if (map[i] != NULL)
-		{
 			printf("|%s", map[i]);
-		}
 		else
-		{
 			printf("(null)");
-		}
 		i++;
 	}
 	printf(" -----------END OF MAP---------------\n");

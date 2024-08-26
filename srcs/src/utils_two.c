@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:33:04 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 16:36:19 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:27:56 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	verify_last_line(t_core *c)
 
 int	its_top_bot(char *line)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (line[i] != '1')
@@ -95,17 +96,7 @@ char	**splitt(char *s, char c)
 	return (dest);
 }
 
-int	ct_line (char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0' && s[i] != '\n')
-		i++;
-	return (i);
-}
-
-int	str_len_modif(char *s)
+int	ct_line(char *s)
 {
 	int	i;
 

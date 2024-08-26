@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:27:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 18:02:25 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:26:49 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	put_path_extend(t_core *c, int what, char *line)
 	{
 		c->texture->we = ft_strdup_end(line);
 		file_exists(c->texture->we, c);
-		if(extension(c->texture->we, ".png"))
+		if (extension(c->texture->we, ".png"))
 			error_extension(c);
 		c->map->WE = 1;
 	}
@@ -26,7 +26,7 @@ void	put_path_extend(t_core *c, int what, char *line)
 	{
 		c->texture->ea = ft_strdup_end(line);
 		file_exists(c->texture->ea, c);
-		if(extension(c->texture->we, ".png"))
+		if (extension(c->texture->we, ".png"))
 			error_extension(c);
 		c->map->EA = 1;
 	}
@@ -38,7 +38,7 @@ void	put_path(t_core *c, int what, char *line)
 	{
 		c->texture->no = ft_strdup_end(line);
 		file_exists(c->texture->no, c);
-		if(extension(c->texture->no, ".png"))
+		if (extension(c->texture->no, ".png"))
 			error_extension(c);
 		c->map->NO = 1;
 	}
@@ -46,7 +46,7 @@ void	put_path(t_core *c, int what, char *line)
 	{
 		c->texture->so = ft_strdup_end(line);
 		file_exists(c->texture->so, c);
-		if(extension(c->texture->so, ".png"))
+		if (extension(c->texture->so, ".png"))
 			error_extension(c);
 		c->map->SO = 1;
 	}
@@ -71,36 +71,24 @@ int	is_valid_data(char *line, t_core *c)
 {
 	while (*line == ' ')
 		line++;
-	if ((*line == 'N' && *(line + 1) == 'O') || (*line == 'N' && *(line + 1) == ' '))
+	if ((*line == 'N' && *(line + 1) == 'O')
+		|| (*line == 'N' && *(line + 1) == ' '))
 	{
 		if (c->map->NO)
 			textures_error_alloc(c);
 		else
 			return (test_it(line, c, 1));
 	}
-	else if ((*line == 'S' && *(line + 1) == 'O') || (*line == 'S' && *(line + 1) == ' '))
+	else if ((*line == 'S' && *(line + 1) == 'O')
+		|| (*line == 'S' && *(line + 1) == ' '))
 	{
 		if (c->map->SO)
 			textures_error_alloc(c);
 		else
 			return (test_it(line, c, 2));
 	}
-	else if ((*line == 'W' && *(line + 1) == 'E') || (*line == 'W' && *(line + 1) == ' '))
-	{
-		if (c->map->WE)
-			textures_error_alloc(c);
-		else
-			return (test_it(line, c, 3));
-	}
-	else if ((*line == 'E' && *(line + 1) == 'A') || (*line == 'E' && *(line + 1) == ' '))
-	{
-		if (c->map->EA)
-			textures_error_alloc(c);
-		else
-			return (test_it(line, c, 4));
-	}
 	else
-		color_process(line, c);
+		return (is_valid_data_extend(line, c));
 	return (1);
 }
 

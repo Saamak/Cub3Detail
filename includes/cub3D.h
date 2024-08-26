@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/26 15:31:54 by ppitzini         ###   ########.fr       */
-/*                                                                            */
+/*	*/
+/*	:::	  ::::::::   */
+/*   cub3D.h	:+:	  :+:	:+:   */
+/*	+:+ +:+	 +:+	 */
+/*   By: ppitzini <marvin@42.fr>	+#+  +:+	   +#+	*/
+/*	+#+#+#+#+#+   +#+	   */
+/*   Created: 2024/07/01 16:24:58 by ppitzini	  #+#	#+#	 */
+/*   Updated: 2024/08/26 15:54:37 by ppitzini	 ###   ########.fr	   */
+/*	*/
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
@@ -54,10 +54,10 @@
 typedef struct s_rotation
 {
 	double	p_angle;
-	int	p_x;
-	int	p_x_2d;
-	int	p_y;
-	int	p_y_2d;
+	int		p_x;
+	int		p_x_2d;
+	int		p_y;
+	int		p_y_2d;
 	float	fov_rd;
 	double	ray_step;
 	int		hor_or_ver;
@@ -68,7 +68,7 @@ typedef struct s_rotation
 	float	distance;
 	int		pos_player_x;
 	int		pos_player_y;
-}t_rotation;
+}	t_rotation;
 
 typedef struct s_map
 {
@@ -131,7 +131,9 @@ void	bit_shift_rgb(int r, int g, int b, t_core *c);
 void	color_process(char *line, t_core *c);
 void	check_color(t_core *c, char *line, char what);
 void	read_map(t_core *c);
-int	extension(char *str, char *ext);
+int		extension(char *str, char *ext);
+int		test_it(char *line, t_core *c, int what);
+void	check_surrounding_cells(t_core *c, int i, int j);
 
 //Init
 t_core	*init_core(t_core *core);
@@ -145,13 +147,16 @@ char	**splitt(char *s, char c);
 int		str_len_modif(char *s);
 int		its_top_bot(char *line);
 char	*ft_strdup_end(const char *src);
+char	*strdup_and_pad(char *src, int len);
 int		is_digit(char *str);
 char	**realloc_map(char **map, int size);
-int		ct_line (char *s);
+int		ct_line(char *s);
 void	count_map_height(t_core *c);
 void	verify_last_line(t_core *c);
 void	count_map_lenght(t_core *c);
 int		str_len_modif(char *s);
+int		is_valid_data_extend(char *line, t_core *c);
+int		is_good_data(char cell);
 
 //free
 void	free_map(t_map *map);
@@ -169,40 +174,44 @@ void	error_extension(t_core *c);
 void	error_argument(t_core *c);
 void	error_wall(t_core *c, int i, int j);
 void	error_player(t_core *c);
-int		window_hook(int event, void* param);
+int		window_hook(int event, void *param);
 
 //go_render
 void	go_render(t_core *c);
-int hit_wall(double x, double y, double ray, t_core *c);
-void    pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color);
-void    draw_minimap(t_rotation *rota, t_core *c);
-void    render_wall(t_core *c, int colone, double start_pixel, double end_pixel);
-void    render_floor_sky(t_core *c, int colone, double start_pixel, double end_pixel);
-int key_hook(int key, void *tempo);
+int		hit_wall(double x, double y, double ray, t_core *c);
+void	pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color);
+void	draw_minimap(t_rotation *rota, t_core *c);
+void	render_wall(t_core *c, int colone,
+			double start_pixel, double end_pixel);
+void	render_floor_sky(t_core *c, int colone,
+			double start_pixel, double end_pixel);
+int		key_hook(int key, void *tempo);
 
 //go_render_utils
-double  normalize_angle(double ray);
-double  get_angle_player(t_core *c);
-int get_pos_player_y(t_core *c, int check);
-int get_pos_player_x(t_core *c, int check);
+double	normalize_angle(double ray);
+double	get_angle_player(t_core *c);
+int		get_pos_player_y(t_core *c, int check);
+int		get_pos_player_x(t_core *c, int check);
+int		check_collision(t_core *c, double pos_x, double pos_y);
 
 //go_render_init
-void    init_rota(t_rotation *rota, t_core *c);
-void    init_mlx(t_core *c);
+void	init_rota(t_rotation *rota, t_core *c);
+void	init_mlx(t_core *c);
 
 //ray_casting_2D
-double  check_horizontal_2d(t_core *c, t_rotation *rota, double ray);
-double  check_vertical_2d(t_core *c, t_rotation *rota, double ray);
-void    send_ray_2d(t_core *c, t_rotation *rota, float current_ray);
-void    render_ray_2d(t_core *c, t_rotation *rota, double current_ray);
-void    cast_ray_2d(t_core *c);
+double	check_horizontal_2d(t_core *c, t_rotation *rota, double ray);
+double	check_vertical_2d(t_core *c, t_rotation *rota, double ray);
+void	send_ray_2d(t_core *c, t_rotation *rota, float current_ray);
+void	render_ray_2d(t_core *c, t_rotation *rota, double current_ray);
+void	cast_ray_2d(t_core *c);
 
 //ray_casting_3D
-double  check_horizontal_3d(t_core *c, t_rotation *rota, double ray);
-double  check_vertical_3d(t_core *c, t_rotation *rota, double ray);
-void    send_ray_3d(t_core *c, t_rotation *rota, float current_ray);
-void    render_ray_3d(t_core *c, t_rotation *rota, double current_ray, int colone);
-void    cast_ray_3d(t_core *c);
+double	check_horizontal_3d(t_core *c, t_rotation *rota, double ray);
+double	check_vertical_3d(t_core *c, t_rotation *rota, double ray);
+void	send_ray_3d(t_core *c, t_rotation *rota, float current_ray);
+void	render_ray_3d(t_core *c, t_rotation *rota,
+			double current_ray, int colone);
+void	cast_ray_3d(t_core *c);
 
 // Texturiize
 void	put_image(t_core *c);

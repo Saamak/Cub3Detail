@@ -6,24 +6,27 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:37:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/11 15:32:20 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:38:17 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int is_good_data(char cell)
+int	is_good_data(char cell)
 {
-	if(cell == '0' || cell == '1' || cell == '2' || cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
-		return 1;
+	if (cell == '0' || cell == '1' || cell == '2' || cell == 'N'
+		|| cell == 'S' || cell == 'E' || cell == 'W')
+		return (1);
 	else
-		return 0;
+		return (0);
 }
 
 void	verify_map_integrity(t_core *c)
 {
-	int	i = 0, j;
+	int	i;
+	int	j;
 
+	i = 0;
 	while (c->map->map[i] != NULL)
 	{
 		j = 0;
@@ -33,21 +36,7 @@ void	verify_map_integrity(t_core *c)
 			error_wall(c, i, j);
 		while (c->map->map[i][j] != '\0')
 		{
-			if (c->map->map[i][j] == '0' || c->map->map[i][j] == 'N'
-				|| c->map->map[i][j] == 'S' || c->map->map[i][j] == 'E'
-				|| c->map->map[i][j] == 'W')
-			{
-				if (i > 0 && !is_good_data(c->map->map[i - 1][j]))
-					error_wall(c, i - 1, j);
-				if (c->map->map[i + 1] != NULL
-					&& !is_good_data(c->map->map[i + 1][j]))
-					error_wall(c, i + 1, j);
-				if (j > 0 && !is_good_data(c->map->map[i][j - 1]))
-					error_wall(c, i, j - 1);
-				if (c->map->map[i][j + 1] != '\0'
-					&& !is_good_data(c->map->map[i][j + 1]))
-					error_wall(c, i, j + 1);
-			}
+			check_surrounding_cells(c, i, j);
 			j++;
 		}
 		i++;
@@ -81,33 +70,6 @@ void	check_tab(t_core *c)
 	}
 }
 
-char	*strdup_and_pad(char *src, int len)
-{
-	int		src_len;
-	char	*dst;
-	int		i;
-
-	src_len = ft_strlen(src);
-	if (src_len > len)
-		len = src_len;
-	dst = malloc(len + 1);
-	if (!dst)
-		return (NULL);
-	i = 0;
-	while (i < src_len)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	while (i < len)
-	{
-		dst[i] = ' ';
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
 void	store_map(t_core *c)
 {
 	int	i;
@@ -117,7 +79,8 @@ void	store_map(t_core *c)
 	c->map->map[i] = ft_strdup(c->line);
 	i++;
 	free(c->line);
-	while ((c->line = get_next_line(c->map->fd)) != NULL)
+	c->line = get_next_line(c->map->fd);
+	while (c->line != NULL)
 	{
 		if (c->line[0] == '\n')
 			error_map(c);
@@ -128,6 +91,7 @@ void	store_map(t_core *c)
 		c->map->map[i + 1] = NULL;
 		i++;
 		free(c->line);
+		c->line = get_next_line(c->map->fd);
 	}
 	c->map->map[i] = NULL;
 	if (c->map->player_here == 0)
@@ -137,13 +101,15 @@ void	store_map(t_core *c)
 
 void	read_map(t_core *c)
 {
-	while ((c->line = get_next_line(c->map->fd)) != NULL)
+	c->line = get_next_line(c->map->fd);
+	while (c->line != NULL)
 	{
 		if (c->line[0] != '\n' && !its_top_bot(c->line))
 			error_map(c);
 		else if (its_top_bot(c->line))
 			break ;
 		free(c->line);
+		c->line = get_next_line(c->map->fd);
 	}
 	if (!c->line)
 		error_map(c);
