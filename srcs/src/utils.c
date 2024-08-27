@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:37:25 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 17:47:55 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:05:53 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	count_map_lenght(t_core *c)
 			c->map->lenght_line = line_lenght;
 		i++;
 	}
-	// printf(B_G"   |Longest map lenght = %d\n"RESET, c->map->lenght_line);
 }
 
 char	**realloc_map(char **map, int size)
