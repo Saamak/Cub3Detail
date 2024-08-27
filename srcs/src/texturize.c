@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texturize.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 23:22:31 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/26 16:11:40 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:42:00 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,4 @@ void	put_image(t_core *c)
 			&img_width, &img_height);
 	c->img_w = mlx_png_file_to_image(c->mlx, "srcs/textures/cow.png",
 			&img_width, &img_height);
-
-	 // displays the image at x,y = 42,42
-
-	// mlx_destroy_image(c->mlx, img);
-	// mlx_destroy_display(c->mlx);
 }

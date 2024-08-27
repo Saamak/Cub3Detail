@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_data_texture.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:27:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/26 16:26:49 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:59:55 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void	take_map_data(t_core *c)
 		c->line = get_next_line(c->map->fd);
 		if (!c->line)
 			error_map(c);
-		if (c->map->NO && c->map->SO && c->map->WE &&
-			c->map->EA && c->map->C && c->map->F)
+		if (c->map->NO && c->map->SO && c->map->WE
+			&& c->map->EA && c->map->C && c->map->F)
 			c->data_ok = 1;
 	}
 	free(c->line);

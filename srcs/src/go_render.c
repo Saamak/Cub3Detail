@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/27 17:13:40 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:59:29 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,36 +29,8 @@ int	hit_wall(double x, double y, double ray, t_core *c)
 	return (0);
 }
 
-void	pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color)
-{
-	int	j;
-	int	k;
-
-	(void)rota;
-	k = 0;
-	j = 0;
-	while (k <= 16)
-	{
-		while (j <= 16)
-		{
-			if (j == 0 || k == 0 || j == 16 || k == 16)
-				mlx_pixel_put(c->mlx, c->win, (y * 16) + j,
-					(x * 16) + k, 0xFF00c401);
-			else if ((y * 16) + j == rota->p_y_2d
-				&& (x * 16) + k == rota->p_x_2d)
-				mlx_pixel_put(c->mlx, c->win, (y * 16) + j,
-					(x * 16) + k, 0xFF03eb00);
-			else
-				mlx_pixel_put(c->mlx, c->win, (y * 16) + j,
-					(x * 16) + k, color);
-			j++;
-		}
-		j = 0;
-		k++;
-	}
-}
-
-void	choose_wall(t_core *c, double start_pixel, double end_pixel, double current_ray)
+void	choose_wall(t_core *c, double start_pixel,
+		double end_pixel, double current_ray)
 {
 	if (c->rota->hor_or_ver == 1)
 	{
@@ -76,9 +48,23 @@ void	choose_wall(t_core *c, double start_pixel, double end_pixel, double current
 	}
 }
 
+double	get_and_put_pix(t_core *c, double start_pixel, float x, void *img)
+{
+	int	color;
+
+	if (c->rota->hor_or_ver == 0)
+		color = mlx_get_image_pixel(c->mlx, img,
+				(int)c->rota->ver_pos_wall_x % 64, (int)floor(x));
+	if (c->rota->hor_or_ver == 1)
+		color = mlx_get_image_pixel(c->mlx, img,
+				(int)c->rota->hor_pos_wall_y % 64, (int)floor(x));
+	mlx_pixel_put(c->mlx, c->win,
+		c->rota->colone, start_pixel--, color);
+	return (start_pixel);
+}
+
 void	render_wall(t_core *c, double start_pixel, double end_pixel, void *img)
 {
-	int		color;
 	float	x;
 	float	steps;
 
@@ -86,19 +72,13 @@ void	render_wall(t_core *c, double start_pixel, double end_pixel, void *img)
 	steps = 64 / (start_pixel - end_pixel);
 	if (start_pixel > 9500)
 		start_pixel = 9500;
-    if (end_pixel < 0)
+	if (end_pixel < 0)
 		end_pixel = 0;
 	while (start_pixel > end_pixel)
 	{
 		if (start_pixel <= 720 && start_pixel >= 0)
 		{
-			if (c->rota->hor_or_ver == 0)
-				color = mlx_get_image_pixel(c->mlx, img,
-						(int)c->rota->ver_pos_wall_x % 64, (int)floor(x));
-			if (c->rota->hor_or_ver == 1)
-				color = mlx_get_image_pixel(c->mlx, img,
-						(int)c->rota->hor_pos_wall_y % 64, (int)floor(x));
-			mlx_pixel_put(c->mlx, c->win, c->rota->colone, start_pixel--, color);
+			start_pixel = get_and_put_pix(c, start_pixel, x, img);
 		}
 		else
 			start_pixel--;

@@ -51,6 +51,16 @@
 # define SPEED 4
 
 // STRUCTURES
+typedef struct s_math
+{
+	double	x_inter;
+	double	y_inter;
+	double	x_step;
+	double	y_step;
+	int		map_x;
+	int		map_y;
+}	t_math;
+
 typedef struct s_rotation
 {
 	double	p_angle;
@@ -183,7 +193,6 @@ int		window_hook(int event, void *param);
 //go_render
 void	go_render(t_core *c);
 int		hit_wall(double x, double y, double ray, t_core *c);
-void	pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color);
 void	render_wall(t_core *c,
 			double start_pixel, double end_pixel, void *img);
 void	render_floor_sky(t_core *c,

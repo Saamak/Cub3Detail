@@ -6,94 +6,112 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:44:05 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/27 17:13:41 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:41:37 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-double  check_horizontal_3d(t_core *c, t_rotation *rota, double ray)
+void	init_math(t_math *math)
 {
-	double	x_inter;
-	double	y_inter;
-	double	x_step;
-	double	y_step;
-	int		map_x;
-	int		map_y;
+	math->x_inter = 0;
+	math->y_inter = 0;
+	math->x_step = 0;
+	math->y_step = 0;
+	math->map_x = 0;
+	math->map_y = 0;
+}
 
-	(void)rota;
-	(void)c;
+void	set_up_horizontal(t_rotation *rota, double ray, t_math *m)
+{
 	if (ray > M_PI && ray < 2 * M_PI)
 	{
-		x_step = -64;
-		x_inter = (rota->p_x / 64) * 64 - 0.0001;
-		y_inter = rota->p_y + (x_inter - rota->p_x) / tan(ray);
+		m->x_step = -64;
+		m->x_inter = (rota->p_x / 64) * 64 - 0.0001;
+		m->y_inter = rota->p_y + (m->x_inter - rota->p_x) / tan(ray);
 	}
 	else
 	{
-		x_step = 64;
-		x_inter = (rota->p_x / 64) * 64 + 64;
-		y_inter = rota->p_y + (x_inter - rota->p_x) / tan(ray);
+		m->x_step = 64;
+		m->x_inter = (rota->p_x / 64) * 64 + 64;
+		m->y_inter = rota->p_y + (m->x_inter - rota->p_x) / tan(ray);
 	}
-	y_step = 64 / tan(ray);
-	while (x_inter > 0 && x_inter < c->map->height_line * 64
-		&& y_inter > 0 && y_inter < c->map->lenght_line * 64)
+	m->y_step = 64 / tan(ray);
+}
+
+double	check_horizontal_3d(t_core *c, t_rotation *rota, double ray)
+{
+	t_math	*m;
+	double	end_value;
+
+	m = malloc(sizeof(t_math));
+	init_math(m);
+	set_up_horizontal(rota, ray, m);
+	while (m->x_inter > 0 && m->x_inter < c->map->height_line * 64
+		&& m->y_inter > 0 && m->y_inter < c->map->lenght_line * 64)
 	{
-		map_x = (int)(x_inter / 64);
-		map_y = (int)(y_inter / 64);
-		if (c->map->map[map_x][map_y] == '1')
-			break;
+		m->map_x = (int)(m->x_inter / 64);
+		m->map_y = (int)(m->y_inter / 64);
+		if (c->map->map[m->map_x][m->map_y] == '1')
+			break ;
 		if (ray > M_PI && ray < 2 * M_PI)
-			y_inter = y_inter - y_step;
+			m->y_inter = m->y_inter - m->y_step;
 		else
-			y_inter = y_inter + y_step;
-		x_inter = x_inter + x_step;
+			m->y_inter = m->y_inter + m->y_step;
+		m->x_inter = m->x_inter + m->x_step;
 	}
-	rota->hor_pos_wall_x = x_inter;
-	rota->hor_pos_wall_y = y_inter;
-	return (sqrt(pow(y_inter - rota->p_y, 2) + pow(x_inter - rota->p_x, 2)));
-	}
+	rota->hor_pos_wall_x = m->x_inter;
+	rota->hor_pos_wall_y = m->y_inter;
+	end_value = sqrt(pow(m->y_inter - rota->p_y, 2)
+			+ pow(m->x_inter - rota->p_x, 2));
+	free(m);
+	return (end_value);
+}
 
-	double  check_vertical_3d(t_core *c, t_rotation *rota, double ray)
-	{
-	double  x_inter;
-	double  y_inter;
-	double  x_step;
-	double  y_step;
-	int     map_x;
-	int     map_y;
-
-	(void)rota;
-	(void)c;
+void	set_up_vertical(t_rotation *rota, double ray, t_math *m)
+{
 	if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
 	{
-		y_step = -64;
-		y_inter = (rota->p_y / 64) * 64 - 0.0001;
-		x_inter = rota->p_x + (y_inter - rota->p_y) * tan(ray);
+		m->y_step = -64;
+		m->y_inter = (rota->p_y / 64) * 64 - 0.0001;
+		m->x_inter = rota->p_x + (m->y_inter - rota->p_y) * tan(ray);
 	}
 	else
 	{
-		y_step = 64;
-		y_inter = (rota->p_y / 64) * 64 + 64;
-		x_inter = rota->p_x + (y_inter - rota->p_y) * tan(ray);
+		m->y_step = 64;
+		m->y_inter = (rota->p_y / 64) * 64 + 64;
+		m->x_inter = rota->p_x + (m->y_inter - rota->p_y) * tan(ray);
 	}
-	x_step = 64 * tan(ray);
-	while (x_inter > 0 && x_inter < c->map->height_line * 64
-		&& y_inter > 0 && y_inter < c->map->lenght_line * 64)
+	m->x_step = 64 * tan(ray);
+}
+
+double	check_vertical_3d(t_core *c, t_rotation *rota, double ray)
+{
+	t_math	*m;
+	double	end_value;
+
+	m = malloc(sizeof(t_math));
+	init_math(m);
+	set_up_vertical(rota, ray, m);
+	while (m->x_inter > 0 && m->x_inter < c->map->height_line * 64
+		&& m->y_inter > 0 && m->y_inter < c->map->lenght_line * 64)
 	{
-		map_x = (int)(x_inter / 64);
-		map_y = (int)(y_inter / 64);
-		if (c->map->map[map_x][map_y] == '1')
-			break;
+		m->map_x = (int)(m->x_inter / 64);
+		m->map_y = (int)(m->y_inter / 64);
+		if (c->map->map[m->map_x][m->map_y] == '1')
+			break ;
 		if (ray > M_PI / 2 && ray < 3 * M_PI / 2)
-			x_inter = x_inter - x_step;
+			m->x_inter = m->x_inter - m->x_step;
 		else
-			x_inter = x_inter + x_step;
-		y_inter = y_inter + y_step;
+			m->x_inter = m->x_inter + m->x_step;
+		m->y_inter = m->y_inter + m->y_step;
 	}
-	rota->ver_pos_wall_x = x_inter;
-	rota->ver_pos_wall_y = y_inter;
-	return (sqrt(pow(y_inter - rota->p_y, 2) + pow(x_inter - rota->p_x, 2)));
+	rota->ver_pos_wall_x = m->x_inter;
+	rota->ver_pos_wall_y = m->y_inter;
+	end_value = sqrt(pow(m->y_inter - rota->p_y, 2)
+			+ pow(m->x_inter - rota->p_x, 2));
+	free(m);
+	return (end_value);
 }
 
 void	send_ray_3d(t_core *c, t_rotation *rota, float current_ray)
@@ -123,7 +141,8 @@ void	render_ray_3d(t_core *c, t_rotation *rota,
 	double	end_pixel;
 
 	rota->distance = rota->distance * cos(current_ray - rota->p_angle);
-	wall = (64 / rota->distance) * ((SCREEN_LENGHT / 2) / tan(rota->fov_rd / 2));
+	wall = (64 / rota->distance) * ((SCREEN_LENGHT / 2)
+			/ tan(rota->fov_rd / 2));
 	start_pixel = (SCREEN_HEIGHT / 2) + (wall / 2);
 	end_pixel = (SCREEN_HEIGHT / 2) - (wall / 2);
 	choose_wall(c, start_pixel, end_pixel, current_ray);
