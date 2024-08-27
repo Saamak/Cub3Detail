@@ -29,6 +29,7 @@ void	init_rota(t_rotation *rota, t_core *c)
 	rota->hor_pos_wall_y = 0;
 	rota->hor_or_ver = 0;
 	rota->distance = 0;
+	rota->colone = 0;
 }
 
 void	init_mlx(t_core *c)

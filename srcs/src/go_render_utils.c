@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   go_render_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:38:45 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/26 15:57:40 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 01:54:29 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ double	normalize_angle(double ray)
 
 int	check_collision(t_core *c, double pos_x, double pos_y)
 {
+	//printf("POS PLAYER ==> x : %f || y : %f\n", floor(pos_x / 64), floor(pos_y / 64));
 	if (c->map->map[(int)floor(pos_x) / 64][(int)floor(pos_y) / 64] == '1')
 		return (0);
 	else

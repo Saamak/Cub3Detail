@@ -68,6 +68,7 @@ typedef struct s_rotation
 	float	distance;
 	int		pos_player_x;
 	int		pos_player_y;
+	int		colone;
 }	t_rotation;
 
 typedef struct s_map
@@ -106,7 +107,10 @@ typedef struct s_texture
 
 typedef struct map_core
 {
-	void		*img;
+	void		*img_n;
+	void		*img_e;
+	void		*img_s;
+	void		*img_w;
 	void		*mlx;
 	void		*win;
 	int			data_ok;
@@ -181,11 +185,12 @@ void	go_render(t_core *c);
 int		hit_wall(double x, double y, double ray, t_core *c);
 void	pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color);
 void	draw_minimap(t_rotation *rota, t_core *c);
-void	render_wall(t_core *c, int colone,
-			double start_pixel, double end_pixel);
-void	render_floor_sky(t_core *c, int colone,
+void	render_wall(t_core *c,
+			double start_pixel, double end_pixel, void *img);
+void	render_floor_sky(t_core *c,
 			double start_pixel, double end_pixel);
 int		key_hook(int key, void *tempo);
+void	choose_wall(t_core *c, double start_pixel, double end_pixel, double current_ray);
 
 //go_render_utils
 double	normalize_angle(double ray);
@@ -210,7 +215,7 @@ double	check_horizontal_3d(t_core *c, t_rotation *rota, double ray);
 double	check_vertical_3d(t_core *c, t_rotation *rota, double ray);
 void	send_ray_3d(t_core *c, t_rotation *rota, float current_ray);
 void	render_ray_3d(t_core *c, t_rotation *rota,
-			double current_ray, int colone);
+			double current_ray);
 void	cast_ray_3d(t_core *c);
 
 // Texturiize

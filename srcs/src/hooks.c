@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:47:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/26 15:56:49 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 02:30:46 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ int	key_hook(int key, void *tempo)
 	}
 	else if (key == 26)// W move up
 	{
-		if (check_collision(c, c->rota->p_x + (sin(c->rota->p_angle) * SPEED), c->rota->p_y + (cos(c->rota->p_angle) * SPEED)) == 1
-			&& check_collision(c, c->rota->p_x + (sin(c->rota->p_angle) * SPEED), c->rota->p_y) == 1
-			&& check_collision(c, c->rota->p_x, c->rota->p_y + (cos(c->rota->p_angle) * SPEED)) == 1)
+		if (check_collision(c, c->rota->p_x + (sin(c->rota->p_angle) * (SPEED * 2)), c->rota->p_y + (cos(c->rota->p_angle) * (SPEED * 2))) == 1)
 		{
 			c->rota->p_x = c->rota->p_x + (sin(c->rota->p_angle) * SPEED);
 			c->rota->p_y = c->rota->p_y + (cos(c->rota->p_angle) * SPEED);
@@ -51,9 +49,7 @@ int	key_hook(int key, void *tempo)
 	}
 	else if (key == 22)// S move down
 	{
-		if (check_collision(c, c->rota->p_x + (-sin(c->rota->p_angle) * SPEED), c->rota->p_y + (-cos(c->rota->p_angle) * SPEED)) == 1
-			&& check_collision(c, c->rota->p_x + (-sin(c->rota->p_angle) * SPEED), c->rota->p_y) == 1
-			&& check_collision(c, c->rota->p_x, c->rota->p_y + (-cos(c->rota->p_angle) * SPEED)) == 1)
+		if (check_collision(c, c->rota->p_x + (-sin(c->rota->p_angle) * (SPEED * 2)), c->rota->p_y + (-cos(c->rota->p_angle) * (SPEED * 2))) == 1)
 		{
 			c->rota->p_x = c->rota->p_x + (-sin(c->rota->p_angle) * SPEED);
 			c->rota->p_y = c->rota->p_y + (-cos(c->rota->p_angle) * SPEED);
@@ -62,9 +58,7 @@ int	key_hook(int key, void *tempo)
 	}
 	else if (key == 4)// D move right
 	{
-		if (check_collision(c, c->rota->p_x + (-cos(c->rota->p_angle) * SPEED), c->rota->p_y + (sin(c->rota->p_angle) * SPEED)) == 1
-			&& check_collision(c, c->rota->p_x + (-cos(c->rota->p_angle) * SPEED), c->rota->p_y) == 1
-			&& check_collision(c, c->rota->p_x, c->rota->p_y + (sin(c->rota->p_angle) * SPEED)) == 1)
+		if (check_collision(c, c->rota->p_x + (-cos(c->rota->p_angle) * (SPEED * 2)), c->rota->p_y + (sin(c->rota->p_angle) * (SPEED * 2))) == 1)
 		{
 			c->rota->p_x = c->rota->p_x + (-cos(c->rota->p_angle) * SPEED);
 			c->rota->p_y = c->rota->p_y + (sin(c->rota->p_angle) * SPEED);
@@ -73,9 +67,7 @@ int	key_hook(int key, void *tempo)
 	}
 	else if (key == 7)// A move left
 	{
-		if (check_collision(c, c->rota->p_x + (cos(c->rota->p_angle) * SPEED), c->rota->p_y + (-sin(c->rota->p_angle) * SPEED)) == 1
-			&& check_collision(c, c->rota->p_x + (cos(c->rota->p_angle) * SPEED), c->rota->p_y) == 1
-			&& check_collision(c, c->rota->p_x, c->rota->p_y + (-sin(c->rota->p_angle) * SPEED)) == 1)
+		if (check_collision(c, c->rota->p_x + (cos(c->rota->p_angle) * (SPEED * 2)), c->rota->p_y + (-sin(c->rota->p_angle) * (SPEED * 2))) == 1)
 		{
 			c->rota->p_x = c->rota->p_x + (cos(c->rota->p_angle) * SPEED);
 			c->rota->p_y = c->rota->p_y + (-sin(c->rota->p_angle) * SPEED);

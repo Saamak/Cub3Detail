@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_3D.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:44:05 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/26 16:03:49 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 02:31:31 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,23 +116,18 @@ void	send_ray_3d(t_core *c, t_rotation *rota, float current_ray)
 }
 
 void	render_ray_3d(t_core *c, t_rotation *rota,
-	double current_ray, int colone)
+	double current_ray)
 {
 	double	wall;
 	double	start_pixel;
 	double	end_pixel;
 
 	rota->distance = rota->distance * cos(current_ray - rota->p_angle);
-	wall = (64 / rota->distance) * ((SCREEN_LENGHT / 2)
-			/ tan(rota->fov_rd / 2));
+	wall = (64 / rota->distance) * ((SCREEN_LENGHT / 2) / tan(rota->fov_rd / 2));
 	start_pixel = (SCREEN_HEIGHT / 2) + (wall / 2);
 	end_pixel = (SCREEN_HEIGHT / 2) - (wall / 2);
-	//if (start_pixel > SCREEN_HEIGHT)
-	//    start_pixel = SCREEN_HEIGHT;
-	//if (end_pixel < 0)
-	//    end_pixel = 0;
-	render_wall(c, colone, start_pixel, end_pixel);
-	render_floor_sky(c, colone, start_pixel, end_pixel);
+	choose_wall(c, start_pixel, end_pixel, current_ray);
+	render_floor_sky(c, start_pixel, end_pixel);
 }
 
 void	reset_screen(t_core *c)
@@ -158,19 +153,18 @@ void	cast_ray_3d(t_core *c)
 {
 	float	current_ray;
 	float	angle_increment;
-	int		nbr_ray;
 
 	reset_screen(c);
-	nbr_ray = 0;
 	current_ray = normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2));
 	angle_increment = c->rota->fov_rd / SCREEN_LENGHT;
-	while (nbr_ray < SCREEN_LENGHT)
+	while (c->rota->colone < SCREEN_LENGHT)
 	{
 		send_ray_3d(c, c->rota, current_ray);
-		render_ray_3d(c, c->rota, current_ray, nbr_ray);
-		nbr_ray++;
+		render_ray_3d(c, c->rota, current_ray);
+		c->rota->colone++;
 		current_ray = normalize_angle(current_ray + angle_increment);
 	}
+	c->rota->colone = 0;
 	//cast_ray_2d(c);
 	//mlx_put_image_to_window(c->mlx, c->win, c->img, 0, 0);
 }
