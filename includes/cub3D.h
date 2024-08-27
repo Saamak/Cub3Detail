@@ -184,7 +184,6 @@ int		window_hook(int event, void *param);
 void	go_render(t_core *c);
 int		hit_wall(double x, double y, double ray, t_core *c);
 void	pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color);
-void	draw_minimap(t_rotation *rota, t_core *c);
 void	render_wall(t_core *c,
 			double start_pixel, double end_pixel, void *img);
 void	render_floor_sky(t_core *c,
@@ -197,18 +196,11 @@ double	normalize_angle(double ray);
 double	get_angle_player(t_core *c);
 int		get_pos_player_y(t_core *c, int check);
 int		get_pos_player_x(t_core *c, int check);
-int		check_collision(t_core *c, double pos_x, double pos_y);
+int		check_coli(t_core *c, double pos_x, double pos_y);
 
 //go_render_init
 void	init_rota(t_rotation *rota, t_core *c);
 void	init_mlx(t_core *c);
-
-//ray_casting_2D
-double	check_horizontal_2d(t_core *c, t_rotation *rota, double ray);
-double	check_vertical_2d(t_core *c, t_rotation *rota, double ray);
-void	send_ray_2d(t_core *c, t_rotation *rota, float current_ray);
-void	render_ray_2d(t_core *c, t_rotation *rota, double current_ray);
-void	cast_ray_2d(t_core *c);
 
 //ray_casting_3D
 double	check_horizontal_3d(t_core *c, t_rotation *rota, double ray);
