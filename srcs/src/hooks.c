@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:47:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 17:59:30 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:05:47 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	key_deplacement_one(t_core *c, int key)
 {
 	if (key == 26)
 	{
-		if (check_coli(c, c->rota->p_x + (sin(c->rota->p_angle) * (SPEED * 2)),
-				c->rota->p_y + (cos(c->rota->p_angle) * (SPEED * 2))) == 1)
+		if (check_coli(c, c->rota->p_x + (sin(c->rota->p_angle) * (SPEED * 3)),
+				c->rota->p_y + (cos(c->rota->p_angle) * (SPEED * 3))) == 1)
 		{
 			c->rota->p_x = c->rota->p_x + (sin(c->rota->p_angle) * SPEED);
 			c->rota->p_y = c->rota->p_y + (cos(c->rota->p_angle) * SPEED);
@@ -47,8 +47,8 @@ void	key_deplacement_one(t_core *c, int key)
 	}
 	else if (key == 22)
 	{
-		if (check_coli(c, c->rota->p_x + (-sin(c->rota->p_angle) * (SPEED * 2)),
-				c->rota->p_y + (-cos(c->rota->p_angle) * (SPEED * 2))) == 1)
+		if (check_coli(c, c->rota->p_x + (-sin(c->rota->p_angle) * (SPEED * 3)),
+				c->rota->p_y + (-cos(c->rota->p_angle) * (SPEED * 3))) == 1)
 		{
 			c->rota->p_x = c->rota->p_x + (-sin(c->rota->p_angle) * SPEED);
 			c->rota->p_y = c->rota->p_y + (-cos(c->rota->p_angle) * SPEED);
@@ -61,8 +61,8 @@ void	key_deplacement_two(t_core *c, int key)
 {
 	if (key == 4)
 	{
-		if (check_coli(c, c->rota->p_x + (-cos(c->rota->p_angle) * (SPEED * 2)),
-				c->rota->p_y + (sin(c->rota->p_angle) * (SPEED * 2))) == 1)
+		if (check_coli(c, c->rota->p_x + (-cos(c->rota->p_angle) * (SPEED * 3)),
+				c->rota->p_y + (sin(c->rota->p_angle) * (SPEED * 3))) == 1)
 		{
 			c->rota->p_x = c->rota->p_x + (-cos(c->rota->p_angle) * SPEED);
 			c->rota->p_y = c->rota->p_y + (sin(c->rota->p_angle) * SPEED);
@@ -71,8 +71,8 @@ void	key_deplacement_two(t_core *c, int key)
 	}
 	else if (key == 7)
 	{
-		if (check_coli(c, c->rota->p_x + (cos(c->rota->p_angle) * (SPEED * 2)),
-				c->rota->p_y + (-sin(c->rota->p_angle) * (SPEED * 2))) == 1)
+		if (check_coli(c, c->rota->p_x + (cos(c->rota->p_angle) * (SPEED * 3)),
+				c->rota->p_y + (-sin(c->rota->p_angle) * (SPEED * 3))) == 1)
 		{
 			c->rota->p_x = c->rota->p_x + (cos(c->rota->p_angle) * SPEED);
 			c->rota->p_y = c->rota->p_y + (-sin(c->rota->p_angle) * SPEED);
