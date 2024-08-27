@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/27 18:04:53 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:12:59 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,6 @@ void	render_wall(t_core *c, double start_pixel, double end_pixel, void *img)
 		x = x - (steps * 2);
 		start_pixel--;
 	}
-}
-
-void	render_floor_sky(t_core *c,
-	double start_pixel, double end_pixel)
-{
-	int	x;
-
-	x = start_pixel;
-	while (x < SCREEN_HEIGHT)
-		mlx_pixel_put(c->mlx, c->win, c->rota->colone, x++, 0xff058229);
-	x = 0;
-	while (x < end_pixel)
-		mlx_pixel_put(c->mlx, c->win, c->rota->colone, x++, 0xff00b7ef);
 }
 
 void	go_render(t_core *c)
