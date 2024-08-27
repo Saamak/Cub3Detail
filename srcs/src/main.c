@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:12:49 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 02:34:15 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:45:58 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	printf(B_Y"----| Cub3D input verifications...\n\n"RESET);
 	first_checks_hub(argc, argv, c);
 	read_hub(c);
-	print_texture(c);
+	// print_texture(c);
 	printf(BOLD END_LINE RESET);
 	go_render(c);
 	free_parsing(c);
