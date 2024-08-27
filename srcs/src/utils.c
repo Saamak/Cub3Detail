@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:37:25 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 18:05:53 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:07:44 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	count_map_height(t_core *c)
 	while (c->map->map[i] != NULL)
 		i++;
 	c->map->height_line = i;
-	// printf(B_G"   |map height = %d\n"RESET, c->map->height_line);
 }
 
 void	count_map_lenght(t_core *c)

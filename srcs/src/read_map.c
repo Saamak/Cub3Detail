@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:37:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 17:46:07 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:07:36 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	store_map(t_core *c)
 	c->map->map[i] = NULL;
 	if (c->map->player_here == 0)
 		error_player(c);
-	// print_map(c->map->map);
 }
 
 void	read_map(t_core *c)
