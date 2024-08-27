@@ -196,7 +196,7 @@ double	normalize_angle(double ray);
 double	get_angle_player(t_core *c);
 int		get_pos_player_y(t_core *c, int check);
 int		get_pos_player_x(t_core *c, int check);
-int		check_collision(t_core *c, double pos_x, double pos_y);
+int		check_coli(t_core *c, double pos_x, double pos_y);
 
 //go_render_init
 void	init_rota(t_rotation *rota, t_core *c);

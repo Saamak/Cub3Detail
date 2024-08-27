@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:38:45 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/27 17:13:42 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:24:35 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ double	normalize_angle(double ray)
 	return (ray);
 }
 
-int	check_collision(t_core *c, double pos_x, double pos_y)
+int	check_coli(t_core *c, double pos_x, double pos_y)
 {
 	if (c->map->map[(int)floor(pos_x) / 64][(int)floor(pos_y) / 64] == '1')
 		return (0);
