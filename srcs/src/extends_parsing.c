@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:10:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 18:12:56 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:14:41 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	str_len_modif(char *s)
 		i++;
 	return (i);
 }
+
 void	render_floor_sky(t_core *c,
 	double start_pixel, double end_pixel)
 {

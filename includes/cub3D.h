@@ -196,7 +196,8 @@ int		hit_wall(double x, double y, double ray, t_core *c);
 void	render_wall(t_core *c,
 			double start_pixel, double end_pixel, void *img);
 int		key_hook(int key, void *tempo);
-void	choose_wall(t_core *c, double start_pixel, double end_pixel, double current_ray);
+void	choose_wall(t_core *c, double start_pixel,
+			double end_pixel, double current_ray);
 
 //go_render_utils
 double	normalize_angle(double ray);
