@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:32:57 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 16:32:44 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:20:28 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	color_process(char *line, t_core *c)
 		line++;
 	if (*line == 'F' && *(line + 1) == ' ')
 	{
-		if (c->texture->F)
+		if (c->texture->color_f)
 			error_data(c);
 		else
 			check_color(c, line, 'F');
 	}
 	else if (*line == 'C' && *(line + 1) == ' ')
 	{
-		if (c->texture->C)
+		if (c->texture->color_c)
 			error_data(c);
 		else
 			check_color(c, line, 'C');
@@ -48,12 +48,12 @@ void	check_color(t_core *c, char *line, char what)
 	}
 	if (what == 'F')
 	{
-		c->texture->F = ft_strdup_end(line + i);
+		c->texture->color_f = ft_strdup_end(line + i);
 		convert_rgb_f(c);
 	}
 	else if (what == 'C')
 	{
-		c->texture->C = ft_strdup_end(line + i);
+		c->texture->color_c = ft_strdup_end(line + i);
 		convert_rgb_c(c);
 	}
 }

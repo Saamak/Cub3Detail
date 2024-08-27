@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:12:49 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/26 16:12:56 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 02:34:15 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int	main(int argc, char **argv)
 	print_texture(c);
 	printf(BOLD END_LINE RESET);
 	go_render(c);
+	free_parsing(c);
 	return (0);
 }

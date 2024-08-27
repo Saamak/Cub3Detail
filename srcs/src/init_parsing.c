@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:09:19 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/28 04:15:14 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:19:38 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ t_core	*init_texture(t_core *c)
 	c->texture->so = NULL;
 	c->texture->we = NULL;
 	c->texture->ea = NULL;
-	c->texture->F = NULL;
-	c->texture->C = NULL;
-	c->map->NO = 0;
-	c->map->SO = 0;
-	c->map->WE = 0;
-	c->map->EA = 0;
-	c->map->C = 0;
-	c->map->F = 0;
+	c->texture->color_f = NULL;
+	c->texture->color_c = NULL;
+	c->map->n_o = 0;
+	c->map->s_o = 0;
+	c->map->w_e = 0;
+	c->map->e_a = 0;
+	c->map->c_number = 0;
+	c->map->f_number = 0;
 	c->map->lenght_line = 0;
 	c->map->height_line = 0;
 	c->map->i = 0;
