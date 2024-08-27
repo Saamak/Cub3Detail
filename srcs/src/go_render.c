@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/27 02:31:29 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:13:40 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,28 +58,6 @@ void	pixel_draw(int x, int y, t_rotation *rota, t_core *c, int color)
 	}
 }
 
-void	draw_minimap(t_rotation *rota, t_core *c)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (c->map->map[x])
-	{
-		while (c->map->map[x][y] && c->map->map[x][y] != '\n')
-		{
-			if (c->map->map[x][y] != '1')
-				pixel_draw(x, y, rota, c, 0xFFffffff);
-			else
-				pixel_draw(x, y, rota, c, 0xFF002e6e);
-			y++;
-		}
-		y = 0;
-		x++;
-	}
-}
-
 void	choose_wall(t_core *c, double start_pixel, double end_pixel, double current_ray)
 {
 	if (c->rota->hor_or_ver == 1)
@@ -110,7 +88,6 @@ void	render_wall(t_core *c, double start_pixel, double end_pixel, void *img)
 		start_pixel = 9500;
     if (end_pixel < 0)
 		end_pixel = 0;
-	printf("start pixel = %f || end pixel = %f\n", start_pixel, end_pixel);
 	while (start_pixel > end_pixel)
 	{
 		if (start_pixel <= 720 && start_pixel >= 0)
@@ -128,7 +105,6 @@ void	render_wall(t_core *c, double start_pixel, double end_pixel, void *img)
 		x = x - (steps * 2);
 		start_pixel--;
 	}
-        //mlx_pixel_put(c->mlx, c->win, colone, start_pixel--, 0xff9535ff);
 }
 
 void	render_floor_sky(t_core *c,
@@ -155,7 +131,6 @@ void	go_render(t_core *c)
 	mlx_mouse_hide();
 	c->rota = rota;
 	put_image(c);
-	//draw_minimap(rota, c);
 	cast_ray_3d(c);
 	mlx_on_event(c->mlx, c->win, MLX_KEYDOWN, key_hook, c);
 	mlx_on_event(c->mlx, c->win, MLX_WINDOW_EVENT, window_hook, c->mlx);

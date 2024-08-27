@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:44:05 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/27 02:31:31 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:13:41 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,4 @@ void	cast_ray_3d(t_core *c)
 		current_ray = normalize_angle(current_ray + angle_increment);
 	}
 	c->rota->colone = 0;
-	//cast_ray_2d(c);
-	//mlx_put_image_to_window(c->mlx, c->win, c->img, 0, 0);
 }
