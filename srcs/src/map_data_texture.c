@@ -6,7 +6,11 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:27:35 by ppitzini          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/08/27 17:59:55 by pirulenc         ###   ########.fr       */
+=======
+/*   Updated: 2024/08/27 17:21:02 by ppitzini         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +24,7 @@ void	put_path_extend(t_core *c, int what, char *line)
 		file_exists(c->texture->we, c);
 		if (extension(c->texture->we, ".png"))
 			error_extension(c);
-		c->map->WE = 1;
+		c->map->w_e = 1;
 	}
 	if (what == 4)
 	{
@@ -28,7 +32,7 @@ void	put_path_extend(t_core *c, int what, char *line)
 		file_exists(c->texture->ea, c);
 		if (extension(c->texture->we, ".png"))
 			error_extension(c);
-		c->map->EA = 1;
+		c->map->e_a = 1;
 	}
 }
 
@@ -40,7 +44,7 @@ void	put_path(t_core *c, int what, char *line)
 		file_exists(c->texture->no, c);
 		if (extension(c->texture->no, ".png"))
 			error_extension(c);
-		c->map->NO = 1;
+		c->map->n_o = 1;
 	}
 	if (what == 2)
 	{
@@ -48,7 +52,7 @@ void	put_path(t_core *c, int what, char *line)
 		file_exists(c->texture->so, c);
 		if (extension(c->texture->so, ".png"))
 			error_extension(c);
-		c->map->SO = 1;
+		c->map->s_o = 1;
 	}
 	if (what == 3 || what == 4)
 		put_path_extend(c, what, line);
@@ -74,7 +78,7 @@ int	is_valid_data(char *line, t_core *c)
 	if ((*line == 'N' && *(line + 1) == 'O')
 		|| (*line == 'N' && *(line + 1) == ' '))
 	{
-		if (c->map->NO)
+		if (c->map->n_o)
 			textures_error_alloc(c);
 		else
 			return (test_it(line, c, 1));
@@ -82,7 +86,7 @@ int	is_valid_data(char *line, t_core *c)
 	else if ((*line == 'S' && *(line + 1) == 'O')
 		|| (*line == 'S' && *(line + 1) == ' '))
 	{
-		if (c->map->SO)
+		if (c->map->s_o)
 			textures_error_alloc(c);
 		else
 			return (test_it(line, c, 2));
@@ -108,8 +112,8 @@ void	take_map_data(t_core *c)
 		c->line = get_next_line(c->map->fd);
 		if (!c->line)
 			error_map(c);
-		if (c->map->NO && c->map->SO && c->map->WE
-			&& c->map->EA && c->map->C && c->map->F)
+		if (c->map->n_o && c->map->s_o && c->map->w_e
+			&& c->map->e_a && c->map->c_number && c->map->f_number)
 			c->data_ok = 1;
 	}
 	free(c->line);

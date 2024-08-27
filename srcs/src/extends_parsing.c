@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:10:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/26 16:34:43 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:15:11 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_valid_data_extend(char *line, t_core *c)
 	if ((*line == 'W' && *(line + 1) == 'E')
 		|| (*line == 'W' && *(line + 1) == ' '))
 	{
-		if (c->map->WE)
+		if (c->map->w_e)
 			textures_error_alloc(c);
 		else
 			return (test_it(line, c, 3));
@@ -44,7 +44,7 @@ int	is_valid_data_extend(char *line, t_core *c)
 	else if ((*line == 'E' && *(line + 1) == 'A')
 		|| (*line == 'E' && *(line + 1) == ' '))
 	{
-		if (c->map->EA)
+		if (c->map->e_a)
 			textures_error_alloc(c);
 		else
 			return (test_it(line, c, 4));

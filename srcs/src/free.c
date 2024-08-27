@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:09:08 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/08 16:23:41 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:23:25 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	free_texture(t_core *c)
 		free(c->texture->we);
 	if (c->texture->ea)
 		free(c->texture->ea);
-	if (c->texture->C)
-		free(c->texture->C);
-	if (c->texture->F)
-		free(c->texture->F);
+	if (c->texture->color_c)
+		free(c->texture->color_c);
+	if (c->texture->color_f)
+		free(c->texture->color_f);
 	if (c->texture)
 		free(c->texture);
 }
