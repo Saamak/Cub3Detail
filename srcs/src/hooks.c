@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:47:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 17:24:32 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:25:29 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ int	window_hook(int event, void *param)
 	if (event == 0)
 		mlx_loop_end(param);
 	return (0);
-	// Fonctionne mais ce message d'erreur est affiché :
-		//[MacroLibX] Error : Graphics allocator : some user-dependant allocations were not freed before destroying the display
-		//(1 active allocations).
-	 	//You may have not destroyed all the MLX resources you've created
 }
 
 void	key_view(t_core *c, int key)
