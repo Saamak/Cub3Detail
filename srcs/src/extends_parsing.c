@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:10:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/28 16:59:44 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:05:58 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	render_floor_sky(t_core *c,
 
 void	key_escape(t_core *c)
 {
-	mlx_destroy_window(c->mlx, c->win);
 	mlx_loop_end(c->mlx);
 	return ;
 }

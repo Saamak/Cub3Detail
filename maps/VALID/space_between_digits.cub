@@ -1,10 +1,10 @@
-NO ./textures/wall0.jpg
-SO ./textures/wall1.jpg
-WE ./textures/wall2.jpg
-EA ./textures/wall3.jpg
+NO srcs/textures/mouton.png
+SO srcs/textures/bobby.png
+WE srcs/textures/cow.png
+EA srcs/textures/nothing_here.png
 
 F 220,100,0
-C 225,8                ,66                 
+C 225,8                ,66
 
 111111111
 100000001
