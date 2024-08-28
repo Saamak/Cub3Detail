@@ -19,12 +19,12 @@ void	put_image(t_core *c)
 
 	img_height = 64;
 	img_width = 64;
-	c->img_n = mlx_png_file_to_image(c->mlx, "srcs/textures/mouton.png",
+	c->img_n = mlx_png_file_to_image(c->mlx, c->texture->no,
 			&img_width, &img_height);
-	c->img_e = mlx_png_file_to_image(c->mlx, "srcs/textures/nothing_here.png",
+	c->img_e = mlx_png_file_to_image(c->mlx, c->texture->ea,
 			&img_width, &img_height);
-	c->img_s = mlx_png_file_to_image(c->mlx, "srcs/textures/bobby.png",
+	c->img_s = mlx_png_file_to_image(c->mlx, c->texture->so,
 			&img_width, &img_height);
-	c->img_w = mlx_png_file_to_image(c->mlx, "srcs/textures/cow.png",
+	c->img_w = mlx_png_file_to_image(c->mlx, c->texture->we,
 			&img_width, &img_height);
 }
