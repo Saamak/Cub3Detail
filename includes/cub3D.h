@@ -48,7 +48,7 @@
 # define SCREEN_HEIGHT 720
 # define SCREEN_LENGHT 1280
 # define RAYS 720
-# define SPEED 4
+# define SPEED 6
 
 // STRUCTURES
 typedef struct s_math
@@ -227,6 +227,12 @@ void	render_ray_3d(t_core *c, t_rotation *rota, double current_ray);
 //extendes_parsing
 void	render_floor_sky(t_core *c,
 			double start_pixel, double end_pixel);
+
+//Key_deplacement
+void	key_deplacement_up(t_core *c);
+void	key_deplacement_down(t_core *c);
+void	key_deplacement_left(t_core *c);
+void	key_deplacement_right(t_core *c);
 
 void	destroy_image(t_core *c);
 
