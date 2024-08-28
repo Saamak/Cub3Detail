@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:47:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 18:05:47 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:55:26 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ int	key_hook(int key, void *tempo)
 		key_deplacement_one(c, key);
 	else if (key == 4 || key == 7)
 		key_deplacement_two(c, key);
+	else if (key == 41)
+		key_escape(c);
 	return (0);
 }
