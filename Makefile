@@ -6,7 +6,7 @@
 #    By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 17:44:47 by kprigent          #+#    #+#              #
-#    Updated: 2024/08/27 18:11:02 by pirulenc         ###   ########.fr        #
+#    Updated: 2024/08/28 18:25:13 by pirulenc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRCS = srcs/src/main.c \
 		srcs/src/error_two.c \
 		srcs/src/texturize.c \
 		srcs/src/hooks.c \
-		srcs/src/extends_parsing.c
+		srcs/src/extends_parsing.c \
+		srcs/src/key_deplacement.c
 
 OBJTS = $(SRCS:.c=.o)
 

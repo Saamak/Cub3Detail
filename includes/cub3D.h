@@ -228,6 +228,12 @@ void	render_ray_3d(t_core *c, t_rotation *rota, double current_ray);
 void	render_floor_sky(t_core *c,
 			double start_pixel, double end_pixel);
 
+//Key_deplacement
+void	key_deplacement_up(t_core *c);
+void	key_deplacement_down(t_core *c);
+void	key_deplacement_left(t_core *c);
+void	key_deplacement_right(t_core *c);
+
 void	destroy_image(t_core *c);
 
 // Texturiize
