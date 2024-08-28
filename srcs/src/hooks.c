@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:47:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/28 18:24:48 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:33:23 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	key_hook(int key, void *tempo)
 	if (key == 79 || key == 80)
 		key_view(c, key);
 	else if (key == 26)
-		key_deplacement_up(c, key);
+		key_deplacement_up(c);
 	else if (key == 22)
-		key_deplacement_down(c, key);
+		key_deplacement_down(c);
 	else if (key == 4)
-		key_deplacement_left(c, key);
+		key_deplacement_left(c);
 	else if (key == 7)
-		key_deplacement_right(c, key);
+		key_deplacement_right(c);
 	else if (key == 41)
 		key_escape(c);
 	return (0);

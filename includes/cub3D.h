@@ -48,7 +48,7 @@
 # define SCREEN_HEIGHT 720
 # define SCREEN_LENGHT 1280
 # define RAYS 720
-# define SPEED 4
+# define SPEED 6
 
 // STRUCTURES
 typedef struct s_math
