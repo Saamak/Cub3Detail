@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:10:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/28 18:04:07 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:08:13 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	render_floor_sky(t_core *c,
 
 void	key_escape(t_core *c)
 {
-	mlx_destroy_window(c->mlx, c->win);
 	mlx_loop_end(c->mlx);
 	return ;
 }
