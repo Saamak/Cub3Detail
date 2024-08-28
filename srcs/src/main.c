@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:12:49 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 18:06:02 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:02:27 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv)
 	read_hub(c);
 	printf(BOLD END_LINE RESET);
 	go_render(c);
+	printf(B_Y"----| Cub3D exit...\n\n"RESET);
 	free_parsing(c);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extends_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:10:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 18:15:17 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:59:44 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,11 @@ void	render_floor_sky(t_core *c,
 	x = 0;
 	while (x < end_pixel)
 		mlx_pixel_put(c->mlx, c->win, c->rota->colone, x++, 0xff00b7ef);
+}
+
+void	key_escape(t_core *c)
+{
+	mlx_destroy_window(c->mlx, c->win);
+	mlx_loop_end(c->mlx);
+	return ;
 }
