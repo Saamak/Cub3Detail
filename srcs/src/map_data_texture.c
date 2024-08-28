@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_data_texture.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:27:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 18:04:51 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:42:13 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	put_path_extend(t_core *c, int what, char *line)
 	{
 		c->texture->ea = ft_strdup_end(line);
 		file_exists(c->texture->ea, c);
-		if (extension(c->texture->we, ".png"))
+		if (extension(c->texture->ea, ".png"))
 			error_extension(c);
 		c->map->e_a = 1;
 	}
@@ -97,6 +97,7 @@ void	take_map_data(t_core *c)
 	printf(B_Y"\n----| Checking Data\n\n"RESET);
 	while (!c->data_ok && c->line)
 	{
+		printf("line : %s\n", c->line);
 		while (c->line && c->line[0] == '\n')
 		{
 			free(c->line);
