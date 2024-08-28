@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:11:19 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 17:22:42 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:05:35 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	bit_shift_rgb(int r, int g, int b, t_core *c)
 	if (c->what == 'C')
 	{
 		c->texture->rgb_c = 0;
+		c->texture->rgb_c += 255 << 24;
 		c->texture->rgb_c += r << 16;
 		c->texture->rgb_c += g << 8;
 		c->texture->rgb_c += b;
@@ -24,6 +25,7 @@ void	bit_shift_rgb(int r, int g, int b, t_core *c)
 	else
 	{
 		c->texture->rgb_f = 0;
+		c->texture->rgb_f += 255 << 24;
 		c->texture->rgb_f += r << 16;
 		c->texture->rgb_f += g << 8;
 		c->texture->rgb_f += b;
