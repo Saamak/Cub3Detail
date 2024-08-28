@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/27 18:15:16 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:23:02 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	go_render(t_core *c)
 	mlx_on_event(c->mlx, c->win, MLX_KEYDOWN, key_hook, c);
 	mlx_on_event(c->mlx, c->win, MLX_WINDOW_EVENT, window_hook, c->mlx);
 	mlx_loop(c->mlx);
+	destroy_image(c);
 	mlx_destroy_window(c->mlx, c->win);
 	mlx_destroy_display(c->mlx);
 	free(rota);
