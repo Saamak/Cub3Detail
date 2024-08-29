@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_3D_bis.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:08:49 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/27 18:15:14 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:26:55 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	cast_ray_3d(t_core *c)
 	float	current_ray;
 	float	angle_increment;
 
-	reset_screen(c);
 	current_ray = normalize_angle(c->rota->p_angle - (c->rota->fov_rd / 2));
 	angle_increment = c->rota->fov_rd / SCREEN_LENGHT;
 	while (c->rota->colone < SCREEN_LENGHT)

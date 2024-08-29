@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   go_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/27 18:23:02 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:32:01 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,16 @@ double	get_and_put_pix(t_core *c, double start_pixel, float x, void *img)
 
 	if (c->rota->hor_or_ver == 0)
 		color = mlx_get_image_pixel(c->mlx, img,
-				(int)c->rota->ver_pos_wall_x % 64, (int)floor(x));
+				(int)c->rota->ver_pos_wall_x % 64, (int)x);
 	if (c->rota->hor_or_ver == 1)
 		color = mlx_get_image_pixel(c->mlx, img,
-				(int)c->rota->hor_pos_wall_y % 64, (int)floor(x));
-	mlx_pixel_put(c->mlx, c->win,
-		c->rota->colone, start_pixel--, color);
+				(int)c->rota->hor_pos_wall_y % 64, (int)x);
+	if (c->rota->colone > 0 && c->rota->colone < 1280
+		&& start_pixel > 0 && start_pixel < 720)
+	{
+		mlx_pixel_put(c->mlx, c->win,
+			c->rota->colone, start_pixel, color);
+	}
 	return (start_pixel);
 }
 
@@ -80,9 +84,7 @@ void	render_wall(t_core *c, double start_pixel, double end_pixel, void *img)
 		{
 			start_pixel = get_and_put_pix(c, start_pixel, x, img);
 		}
-		else
-			start_pixel--;
-		x = x - (steps * 2);
+		x = x - steps;
 		start_pixel--;
 	}
 }

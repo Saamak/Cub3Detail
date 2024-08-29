@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:37:25 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 18:07:44 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:44:38 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,18 @@ char	**realloc_map(char **map, int size)
 	return (new_map);
 }
 
-char	*ft_strdup_end(const char *src)
+char	*ft_strdup_end(const char *src, t_core *c)
 {
 	char	*dest;
 	int		i;
 
 	i = 0;
 	while (src[i] != '\0' && src[i] != '\n')
-	{
 		i++;
-	}
 	dest = (char *)malloc(sizeof(char) * (i + 1));
 	if (!dest)
 	{
+		free_parsing(c);
 		return (NULL);
 	}
 	i = 0;
@@ -77,7 +76,7 @@ char	*ft_strdup_end(const char *src)
 	return (dest);
 }
 
-char	*strdup_and_pad(char *src, int len)
+char	*strdup_and_pad(char *src, int len, t_core *c)
 {
 	int		src_len;
 	char	*dst;
@@ -88,7 +87,7 @@ char	*strdup_and_pad(char *src, int len)
 		len = src_len;
 	dst = malloc(len + 1);
 	if (!dst)
-		return (NULL);
+		return (free_parsing(c), NULL);
 	i = 0;
 	while (i < src_len)
 	{

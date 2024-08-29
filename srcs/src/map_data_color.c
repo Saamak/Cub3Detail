@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:32:57 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/27 17:20:28 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:41:07 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	check_color(t_core *c, char *line, char what)
 	}
 	if (what == 'F')
 	{
-		c->texture->color_f = ft_strdup_end(line + i);
+		c->texture->color_f = ft_strdup_end(line + i, c);
 		convert_rgb_f(c);
 	}
 	else if (what == 'C')
 	{
-		c->texture->color_c = ft_strdup_end(line + i);
+		c->texture->color_c = ft_strdup_end(line + i, c);
 		convert_rgb_c(c);
 	}
 }

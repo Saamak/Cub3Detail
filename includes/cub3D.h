@@ -65,9 +65,7 @@ typedef struct s_rotation
 {
 	double	p_angle;
 	int		p_x;
-	int		p_x_2d;
 	int		p_y;
-	int		p_y_2d;
 	float	fov_rd;
 	double	ray_step;
 	int		hor_or_ver;
@@ -115,7 +113,7 @@ typedef struct s_texture
 	int		rgb_c;
 }				t_texture;
 
-typedef struct map_core
+typedef struct s_map_core
 {
 	void		*img_n;
 	void		*img_e;
@@ -157,11 +155,11 @@ void	print_map(char **map);
 void	print_texture(t_core *c);
 
 //utils
-char	**splitt(char *s, char c);
+char	**splitt(char *s, char c, t_core *co);
 int		str_len_modif(char *s);
 int		its_top_bot(char *line);
-char	*ft_strdup_end(const char *src);
-char	*strdup_and_pad(char *src, int len);
+char	*ft_strdup_end(const char *src, t_core *c);
+char	*strdup_and_pad(char *src, int len, t_core *c);
 int		is_digit(char *str);
 char	**realloc_map(char **map, int size);
 int		ct_line(char *s);

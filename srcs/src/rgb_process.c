@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:11:19 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/29 14:53:02 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:45:52 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	convert_rgb_f(t_core *c)
 
 	if (c == NULL || c->texture->color_f == NULL)
 		error_rgb(c, NULL);
-	tab = splitt(c->texture->color_f, ',');
+	tab = splitt(c->texture->color_f, ',', c);
 	if ((tab[0] != NULL) || (tab[1] != NULL) || (tab[2] != NULL))
 	{
 		if (!is_digit(tab[0]) || !is_digit(tab[1]) || !is_digit(tab[2]))
@@ -80,7 +80,7 @@ void	convert_rgb_c(t_core *c)
 
 	if (c == NULL || c->texture->color_c == NULL)
 		error_rgb(c, NULL);
-	tab = splitt(c->texture->color_c, ',');
+	tab = splitt(c->texture->color_c, ',', c);
 	if ((tab[0] != NULL) && (tab[1] != NULL) && (tab[2] != NULL))
 	{
 		if (!is_digit(tab[0]) || !is_digit(tab[1]) || !is_digit(tab[2]))

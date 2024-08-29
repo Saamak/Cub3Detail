@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:09:19 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/28 18:05:17 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:37:39 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_core	*init_core(t_core *c)
 	c->map = malloc(sizeof(t_map));
 	if (!c->map)
 	{
+		free(c);
 		perror("Error allocating memory for map");
 		exit(EXIT_FAILURE);
 	}

@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:37:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/29 14:37:38 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:47:20 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_good_data(char cell)
 {
-	if (cell == '0' || cell == '1' || cell == '2' || cell == 'N'
+	if (cell == '0' || cell == '1' || cell == 'N'
 		|| cell == 'S' || cell == 'E' || cell == 'W')
 		return (1);
 	else
@@ -50,7 +50,7 @@ void	check_tab(t_core *c)
 	i = 0;
 	while (c->line[i] != '\n' && c->line[i])
 	{
-		if (c->line[i] != '0' && c->line[i] != '1' && c->line[i] != '2'
+		if (c->line[i] != '0' && c->line[i] != '1'
 			&& c->line[i] != ' ' && c->line[i] != 'P' && c->line[i] != 'N'
 			&& c->line[i] != 'S' && c->line[i] != 'E' && c->line[i] != 'W')
 			error_map(c);
@@ -87,7 +87,7 @@ void	store_map(t_core *c)
 		check_tab(c);
 		c->map->len_prev_line = str_len_modif(c->map->map[i - 1]);
 		c->map->map = realloc_map(c->map->map, sizeof(char *) * (i + 2));
-		c->map->map[i] = strdup_and_pad(c->line, c->map->len_prev_line);
+		c->map->map[i] = strdup_and_pad(c->line, c->map->len_prev_line, c);
 		c->map->map[i + 1] = NULL;
 		i++;
 		free(c->line);

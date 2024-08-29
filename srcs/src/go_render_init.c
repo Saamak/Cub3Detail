@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 06:40:32 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/26 15:47:48 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:24:08 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	init_rota(t_rotation *rota, t_core *c)
 {
 	rota->p_angle = get_angle_player(c);
-	rota->p_x_2d = get_pos_player_x(c, 0);
-	rota->p_y_2d = get_pos_player_y(c, 0);
 	rota->p_x = get_pos_player_x(c, 1);
 	rota->p_y = get_pos_player_y(c, 1);
 	rota->pos_player_x = get_pos_player_x(c, 2);

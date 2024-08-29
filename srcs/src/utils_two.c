@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:33:04 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/29 14:19:28 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:47:09 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	count_word(char *s, char c)
 	return (c_w);
 }
 
-char	**splitt(char *s, char c)
+char	**splitt(char *s, char c, t_core *co)
 {
 	char	**dest;
 	int		i;
@@ -77,7 +77,7 @@ char	**splitt(char *s, char c)
 		return (NULL);
 	dest = malloc(sizeof(char *) * (count_word(s, c) + 1));
 	if (!dest)
-		return (NULL);
+		return (free_parsing(co), NULL);
 	while (*s)
 	{
 		if (s[0] == c)
