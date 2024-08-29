@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extends_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:10:11 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/28 18:08:13 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:26:24 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ void	render_floor_sky(t_core *c,
 
 	x = start_pixel;
 	while (x < SCREEN_HEIGHT)
-		mlx_pixel_put(c->mlx, c->win, c->rota->colone, x++, c->texture->rgb_c);
+		mlx_pixel_put(c->mlx, c->win, c->rota->colone, x++, c->texture->rgb_f);
 	x = 0;
 	while (x < end_pixel)
-		mlx_pixel_put(c->mlx, c->win, c->rota->colone, x++, c->texture->rgb_f);
+		mlx_pixel_put(c->mlx, c->win, c->rota->colone, x++, c->texture->rgb_c);
 }
 
 void	key_escape(t_core *c)

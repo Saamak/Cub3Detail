@@ -4,7 +4,7 @@ WE srcs/textures/cow.png
 EA srcs/textures/nothing_here.png
 
 F 220,100,0
-C 225,30,0
+C 22,30,100
 
 111
 101
@@ -17,4 +17,3 @@ C 225,30,0
 101
 1N1
 111
-

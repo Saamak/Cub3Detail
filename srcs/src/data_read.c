@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:07 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/07 15:02:06 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:20:56 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	read_hub(t_core *c)
 	take_map_data(c);
 	if (c->data_ok)
 	{
-		printf(B_G"\n\n-----------------| Data are corrects\xE2\x9C\x93 |\n"
+		printf(B_G"\n\n-----------------| Data are corrects\xE2\x9C\x93 |"
 			"-------------\n"RESET);
 		read_map(c);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:09:08 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/28 18:05:26 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:53:10 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	free_texture(t_core *c)
 	if (c->texture)
 		free(c->texture);
 }
+
 void	destroy_image(t_core *c)
 {
 	if (c->img_n)
@@ -67,6 +68,7 @@ void	destroy_image(t_core *c)
 	if (c->img_w)
 		mlx_destroy_image(c->mlx, c->img_w);
 }
+
 void	free_parsing(t_core *c)
 {
 	if (c)

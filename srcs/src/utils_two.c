@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:33:04 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/26 16:27:56 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:19:28 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	its_top_bot(char *line)
 			return (0);
 		i++;
 	}
-	printf(B_G"   | Map found \xE2\x9C\x93 \n"RESET);
 	return (1);
 }
 
