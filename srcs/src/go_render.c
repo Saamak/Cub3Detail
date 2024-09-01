@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   go_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:34:09 by pirulenc          #+#    #+#             */
-/*   Updated: 2024/08/29 18:32:01 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/09/01 14:22:20 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,20 @@ void	go_render(t_core *c)
 	MLX_API int	mlx_mouse_hide();
 
 	rota = malloc(sizeof(t_rotation));
+	if (!rota)
+		return ;
 	init_rota(rota, c);
 	init_mlx(c);
 	mlx_mouse_hide();
 	c->rota = rota;
-	put_image(c);
-	cast_ray_3d(c);
-	mlx_on_event(c->mlx, c->win, MLX_KEYDOWN, key_hook, c);
-	mlx_on_event(c->mlx, c->win, MLX_WINDOW_EVENT, window_hook, c->mlx);
-	mlx_loop(c->mlx);
-	destroy_image(c);
+	if (put_image(c) == 1)
+	{
+		cast_ray_3d(c);
+		mlx_on_event(c->mlx, c->win, MLX_KEYDOWN, key_hook, c);
+		mlx_on_event(c->mlx, c->win, MLX_WINDOW_EVENT, window_hook, c->mlx);
+		mlx_loop(c->mlx);
+		destroy_image(c);
+	}
 	mlx_destroy_window(c->mlx, c->win);
 	mlx_destroy_display(c->mlx);
 	free(rota);

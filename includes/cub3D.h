@@ -235,5 +235,6 @@ void	key_deplacement_right(t_core *c);
 void	destroy_image(t_core *c);
 
 // Texturiize
-void	put_image(t_core *c);
+int		put_image(t_core *c);
+
 #endif

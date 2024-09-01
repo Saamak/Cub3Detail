@@ -2,7 +2,7 @@
 C 255,255,255
 F 100,45,120
 
-NO srcs/textures/mouton.png
+NO srcs/textures/128x128.png
 SO srcs/textures/bobby.png
 WE srcs/textures/cow.png
 EA srcs/textures/nothing_here.png
