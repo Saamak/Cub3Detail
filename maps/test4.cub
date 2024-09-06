@@ -1,11 +1,11 @@
 
-C 255,255,255
-F 100,45,120
+C 27,25,25
+F 90,74,21
 
-NO srcs/textures/mouton.png
-SO srcs/textures/bobby.png
-WE srcs/textures/cow.png
-EA srcs/textures/nothing_here.png
+NO srcs/textures/pipe.png
+SO srcs/textures/brick.png
+WE srcs/textures/crate.png
+EA srcs/textures/grid.png
 
 1111111111111
 1001000010001

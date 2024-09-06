@@ -6,7 +6,7 @@
 /*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 23:22:31 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/09/01 14:23:32 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:44:53 by pirulenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	verif_image_size(t_core *c, char *path)
 	img = mlx_png_file_to_image(c->mlx, path, &img_width, &img_height);
 	if (img_width != 64 || img_height != 64)
 	{
-		printf("Error\nTexture %s is not 64x64\n", path);
+		printf(R"Error\nTexture %s is not 64x64\n"RESET, path);
 		mlx_destroy_image(c->mlx, img);
 		return (0);
 	}
