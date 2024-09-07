@@ -55,7 +55,7 @@ void	convert_rgb_f(t_core *c)
 	if (c == NULL || c->texture->color_f == NULL)
 		error_rgb(c, NULL);
 	tab = splitt(c->texture->color_f, ',', c);
-	if ((tab[0] != NULL) || (tab[1] != NULL) || (tab[2] != NULL))
+	if ((tab[0] != NULL) && (tab[1] != NULL) && (tab[2] != NULL))
 	{
 		if (!is_digit(tab[0]) || !is_digit(tab[1]) || !is_digit(tab[2]))
 			error_rgb(c, tab);

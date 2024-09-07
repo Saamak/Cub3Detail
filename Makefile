@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+         #
+#    By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 17:44:47 by kprigent          #+#    #+#              #
-#    Updated: 2024/08/28 18:25:13 by pirulenc         ###   ########.fr        #
+#    Updated: 2024/09/06 16:02:13 by ppitzini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ SRCS = srcs/src/main.c \
 		srcs/src/read_map.c \
 		srcs/src/utils.c \
 		srcs/src/init_parsing.c \
-		srcs/src/print.c \
 		srcs/src/utils_two.c \
 		srcs/src/free.c \
 		srcs/src/error.c \
