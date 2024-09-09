@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:37:25 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/09/08 16:26:28 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:17:34 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ void	count_map_lenght(t_core *c)
 	}
 }
 
-char	**realloc_map(char **map, int size)
-{
-	char	**new_map;
+// char	**realloc_map(char **map, int size)
+// {
+// 	char	**new_map;
 
-	new_map = realloc(map, sizeof(char *) * size);
-	if (new_map == NULL)
-	{
-		fprintf(stderr, "Error: realloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	new_map[size - 1] = NULL;
-	return (new_map);
-}
+// 	new_map = realloc(map, sizeof(char *) * size);
+// 	if (new_map == NULL)
+// 	{
+// 		fprintf(stderr, "Error: realloc failed\n");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	new_map[size - 1] = NULL;
+// 	return (new_map);
+// }
 
 char	*ft_strdup_end(const char *src, t_core *c)
 {

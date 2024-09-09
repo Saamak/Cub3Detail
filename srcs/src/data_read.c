@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:07 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/08/29 14:20:56 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:17:20 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ void	skip_lines(int fd, t_core *c)
 			error_map(c);
 	}
 }
-
-// stocker la map et regarder autour de tout les 0 si il y a des 1 ou 0 autour
-// si 0 au tout debut d'une ligne, erreur car mur impossible a gauche.
 
 int	read_hub(t_core *c)
 {
