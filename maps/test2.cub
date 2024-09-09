@@ -1,6 +1,6 @@
 
 C 255,255,255
-F 100,45,120
+F 100,45,12
 
 NO srcs/textures/mouton.png
 SO srcs/textures/bobby.png
