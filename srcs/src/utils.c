@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:37:25 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/09/09 16:17:34 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:00:51 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,6 @@ void	count_map_lenght(t_core *c)
 	}
 }
 
-// char	**realloc_map(char **map, int size)
-// {
-// 	char	**new_map;
-
-// 	new_map = realloc(map, sizeof(char *) * size);
-// 	if (new_map == NULL)
-// 	{
-// 		fprintf(stderr, "Error: realloc failed\n");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	new_map[size - 1] = NULL;
-// 	return (new_map);
-// }
-
 char	*ft_strdup_end(const char *src, t_core *c)
 {
 	char	*dest;
@@ -76,29 +62,45 @@ char	*ft_strdup_end(const char *src, t_core *c)
 	return (dest);
 }
 
-char	*strdup_and_pad(char *src, int len, t_core *c)
+int	get_lenght_max(char **map)
 {
-	int		src_len;
-	char	*dst;
-	int		i;
+	int	i;
+	int	j;
+	int	max;
 
-	src_len = ft_strlen(src);
-	if (src_len > len)
-		len = src_len;
-	dst = malloc(len + 1);
-	if (!dst)
-		return (free_parsing(c), NULL);
+	max = 0;
+	j = 0;
 	i = 0;
-	while (i < src_len)
+	while (map[i])
 	{
-		dst[i] = src[i];
+		while (map[i][j] != '\0')
+			j++;
+		if (j > max)
+			max = j;
+		j = 0;
 		i++;
 	}
-	while (i < len)
+	return (max);
+}
+
+void	ft_replace_with_spaces(char **map)
+{
+	int	lenght_max;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	lenght_max = get_lenght_max(map);
+	while (map[i])
 	{
-		dst[i] = ' ';
+		while (map[i][j] != '\0' && j < lenght_max)
+		{
+			if (map[i][j] == '\n')
+				map[i][j] = ' ';
+			j++;
+		}
+		j = 0;
 		i++;
 	}
-	dst[i] = '\0';
-	return (dst);
 }

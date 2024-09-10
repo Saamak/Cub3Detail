@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:09:19 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/09/09 16:28:49 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:58:21 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_core	*init_map(t_core *c)
 	c->map->g = 0;
 	c->map->b = 0;
 	c->map->fd = 0;
+	c->map->tmp_fd = 0;
 	c->map->len_prev_line = 0;
 	c->map->len_this_line = 0;
 	c->map->map = NULL;

@@ -46,7 +46,7 @@
 # define FOV 60
 # define TILE 15
 # define SCREEN_HEIGHT 720
-# define SCREEN_LENGHT 1280
+# define SCREEN_LENGHT 720
 # define RAYS 720
 # define SPEED 6
 
@@ -82,6 +82,7 @@ typedef struct s_rotation
 typedef struct s_map
 {
 	int		fd;
+	int		tmp_fd;
 	int		lenght_line;
 	int		height_line;
 	int		i;
@@ -159,9 +160,9 @@ char	**splitt(char *s, char c, t_core *co);
 int		str_len_modif(char *s);
 int		its_top_bot(char *line);
 char	*ft_strdup_end(const char *src, t_core *c);
-char	*strdup_and_pad(char *src, int len, t_core *c);
+void	ft_replace_with_spaces(char **map);
+int		get_lenght_max(char **map);
 int		is_digit(char *str);
-char	**realloc_map(char **map, int size);
 int		ct_line(char *s);
 void	count_map_height(t_core *c);
 void	verify_last_line(t_core *c);

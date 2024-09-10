@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pirulenc <pirulenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:11:19 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/09/08 16:38:23 by pirulenc         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:00:28 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	is_digit(char *str)
 	return (1);
 }
 
-int		ft_check_comma(char *color)
+int	ft_check_comma(char *color)
 {
 	int	i;
 	int	comma;

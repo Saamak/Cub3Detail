@@ -1,7 +1,7 @@
-NO ./textures/wall0.jpg
-SO ./textures/wall0.jpg
-WE ./textures/wall0.jpg
-EA ./textures/wall0.jpg
+NO srcs/textures/mouton.png
+SO srcs/textures/bobby.png
+WE srcs/textures/cow.png
+EA srcs/textures/nothing_here.png
 
 F 220,100,0
 C 225,-30,256

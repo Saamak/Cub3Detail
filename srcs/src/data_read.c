@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:07 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/09/09 16:17:20 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:01:26 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,13 @@ int	read_hub(t_core *c)
 		read_map(c);
 	}
 	return (1);
+}
+
+int	is_good_data(char cell)
+{
+	if (cell == '0' || cell == '1' || cell == 'N'
+		|| cell == 'S' || cell == 'E' || cell == 'W')
+		return (1);
+	else
+		return (0);
 }
