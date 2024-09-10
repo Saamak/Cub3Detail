@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:37:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/09/10 13:01:22 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:57:25 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	get_map_height(int fd)
 		i++;
 	}
 	free(line);
+	close(fd);
 	return (i);
 }
 
