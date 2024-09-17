@@ -46,7 +46,7 @@
 # define FOV 60
 # define TILE 15
 # define SCREEN_HEIGHT 720
-# define SCREEN_LENGHT 720
+# define SCREEN_LENGHT 1280
 # define RAYS 720
 # define SPEED 6
 
